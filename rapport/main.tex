@@ -13,10 +13,11 @@
 \usepackage{fancyhdr}
 \usepackage{booktabs,tabularx,array}
 \usepackage{listings}
+\usepackage{longtable,enumitem,needspace,pdflscape}
 \usepackage{hyperref}
 
 \usepackage{tikz}
-\usetikzlibrary{positioning,arrows.meta,shapes.geometric}
+\usetikzlibrary{positioning,arrows.meta,shapes.geometric,calc}
 \tikzset{
   entite/.style={
     draw=accent, rounded corners=3pt, fill=accent!7,
@@ -31,15 +32,14 @@
   lien/.style={draw=discret, -{Latex[length=2mm]}}
 }
 
-\newcommand{\TitreProjet}{Test du projet}
-\newcommand{\SousTitre}{Conception et réalisation d'une base de données}
-\newcommand{\Universite}{LSIN513 - Bases de données}
-\newcommand{\Formation}{L3 Informatique}
-\newcommand{\Annee}{2026--2027}
-\newcommand{\AuteurUn}{Prénom Nom 1}
-\newcommand{\AuteurDeux}{Prénom Nom 2}
-\newcommand{\AuteurTrois}{Prénom Nom 3}
-
+\newcommand{\TitreProjet}{Jeux Olympiques\\de Paris 2024}
+\newcommand{\SousTitre}{Phase 1}
+\newcommand{\UE}{LSIN513}
+\newcommand{\Formation}{Bases de données}
+\newcommand{\Annee}{2026-2027}
+\newcommand{\AuteurUn}{Jibril Sehil}
+\newcommand{\AuteurDeux}{Alban Vautier}
+\newcommand{\AuteurTrois}{Kilian Colombel}
 \newcommand{\FichierLogo}{UVSQ.jpg}
 
 
@@ -54,17 +54,16 @@
 
 
 
-\definecolor{accent}{HTML}{175673}
-\definecolor{encre}{HTML}{24343D}
-\definecolor{discret}{HTML}{65727A}
+\definecolor{accent}{HTML}{000000}
+\definecolor{encre}{HTML}{000000}
+\definecolor{discret}{HTML}{000000}
 \definecolor{fondcode}{HTML}{F3F6F7}
-\definecolor{trait}{HTML}{D8E2E5}
+\definecolor{trait}{HTML}{000000}
 
 \hypersetup{
   colorlinks=true,linkcolor=accent,urlcolor=accent,citecolor=accent,
-  pdftitle={\TitreProjet},
+  pdftitle={Jeux Olympiques de Paris 2024 - Phase 1},
   pdfauthor={\AuteurUn, \AuteurDeux, \AuteurTrois},
-  pdfsubject={Rapport de projet de bases de données}
 }
 \urlstyle{same}
 \setlength{\parindent}{0pt}
@@ -77,19 +76,20 @@
 \titleformat{\section}
   {\Large\sffamily\bfseries\color{encre}}
   {\color{accent}\thesection}{0.7em}{}
-  [\vspace{0.2em}{\color{trait}\titlerule}]
+  
 \titleformat{\subsection}
   {\large\sffamily\bfseries\color{accent}}
   {\thesubsection}{0.7em}{}
 \titlespacing*{\section}{0pt}{1.6em}{0.7em}
 \titlespacing*{\subsection}{0pt}{1em}{0.3em}
 
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[R]{\small\sffamily\color{discret}\Formation}
-\fancyfoot[L]{\small\sffamily\color{discret}Rapport de projet}
-\fancyfoot[R]{\small\sffamily\color{accent}\thepage}
-\renewcommand{\headrulewidth}{0.3pt}
+% PIEDS DE PAGE
+% \pagestyle{fancy}
+% \fancyhf{}
+% \fancyhead[R]{\small\sffamily\color{discret}\Formation}
+% \fancyhead[L]{\small\sffamily\color{discret}Rapport de projet}
+% \fancyfoot[R]{\small\sffamily\color{accent}\thepage}
+% \renewcommand{\headrulewidth}{0.3pt}
 
 
 \newcommand{\aCompleter}[1]{{\color{discret}\itshape #1}}
@@ -125,6 +125,27 @@
 \lstset{style=sqlprojet}
 \renewcommand{\lstlistingname}{Extrait}
 
+
+\hypersetup{hypertexnames=false}
+\raggedbottom
+\setlist[description]{leftmargin=1.2cm,labelwidth=1cm,itemsep=0.35em,parsep=0pt}
+\setlist[itemize]{nosep,leftmargin=1.4em}
+\newcommand{\concept}[2]{\textbf{#1} & #2\\}
+\newcommand{\pk}[1]{\textbf{#1}}
+\newcommand{\fk}[1]{\underline{#1}}
+\newcommand{\nfk}[3]{%
+  \underline{#1}$\Rightarrow$#2(\pk{#3})%
+}
+\newcommand{\pfk}[1]{\textbf{\underline{#1}}}
+\newcommand{\relation}[2]{\vspace{1em}\needspace{3\baselineskip}\noindent\textbf{#1}{#2}\par}
+\tikzset{
+  ce/.style={draw=accent,rounded corners=2pt,fill=accent!7,align=center,
+    font=\small\sffamily\bfseries,minimum width=2.65cm,minimum height=0.85cm},
+  ca/.style={draw=discret,ellipse,fill=white,align=center,font=\scriptsize\sffamily,
+    minimum width=1.8cm,minimum height=0.65cm,inner sep=2pt},
+  cl/.style={draw=discret},
+  cc/.style={font=\scriptsize,fill=white,inner sep=1.5pt,text=encre}
+}
 \begin{document}
 
 
@@ -142,7 +163,7 @@
     }
   }{}
   \sffamily
-  {\large\color{encre}\Universite\par}
+  {\large\color{encre}\UE\par}
   {\color{discret}\Formation\enspace - \enspace\Annee\par}
   \vspace{0.7cm}
   {\color{accent}\rule{\linewidth}{1.5pt}\par}
@@ -156,7 +177,7 @@
 
   \vfill
   \begin{minipage}[t]{0.54\textwidth}
-    {\small\bfseries\color{accent}ÉQUIPE\par}
+    {\small\bfseries\color{accent}LES GOATS\par}
     \vspace{0.2cm}
     \AuteurUn\par
     \AuteurDeux\par
@@ -176,87 +197,24 @@
 
 \section{Phase 1 : analyse et modélisation}
 
+\input{sections/01_cahier_des_charges}
+\clearpage
 
+\input{sections/02_modelisation}
+\clearpage
 
+\input{sections/03_contraintes}
+\clearpage
 
-\subsection{Cahier des charges}
+\input{sections/04_droits_et_vues}
+\clearpage
 
-\aCompleter{Décrire le cahier des charges, c’est-à-dire la description des besoins de votre application
-de bases de données.}
+\input{sections/05_questions}
+\clearpage
 
-% \subsubsection{Contexte et objectif}
-% \aCompleter{Présenter le sujet retenu, le besoin auquel il répond et les
-% utilisateurs concernés. Résumer l'objectif du projet en quelques phrases.}
+\input{sections/06_schema_relationnel}
+\clearpage
 
-% \subsubsection{Périmètre et fonctionnalités}
-% \aCompleter{Lister les fonctionnalités prévues et préciser les limites
-% du projet. Adapter le tableau à votre sujet.}
-
-% \begin{tabularx}{\linewidth}{@{}lYY@{}}
-%   \toprule
-%   \textbf{Référence} & \textbf{Fonctionnalité} & \textbf{Résultat attendu} \\
-%   \midrule
-%   F01 & \aCompleter{À compléter} & \aCompleter{À compléter} \\
-%   F02 & \aCompleter{À compléter} & \aCompleter{À compléter} \\
-%   \bottomrule
-% \end{tabularx}
-
-\subsection{Modélisation}
-\aCompleter{Donner le schéma Entité/Association détaillé modélisant les besoins définis
-dans le cahier des charges. On rappelle qu’un schéma E/A est indépendant d’un modèle de
-données.}
-
-\begin{figure}[htbp]
-  \centering
-  \emplacementFigure{Emplacement du schéma conceptuel}
-  \caption{Modèle conceptuel de la base de données.}
-  \label{fig:modele}
-\end{figure}
-
-\subsection{Contraintes d'intégrité}
-\aCompleter{Définition les contraintes d'intégrité qui ne peuvent pas être
-exprimées sur le modèle conceptuel. Mettre l’accent sur la rédaction en langage naturel de
-contraintes d’intégrité complexes.}
-
-\subsection{Droits, vues et confidentialité}
-\aCompleter{Décrire les différents utilisateurs ou groupes
-d’utilisateurs de votre base de données, ainsi que les droits qu’ils devraient avoir en vous
-référant aux concepts décrits au-dessus.}
-
-\begin{tabularx}{\linewidth}{@{}YYY@{}}
-  \toprule
-  \textbf{Utilisateur / groupe} & \textbf{Informations accessibles} & \textbf{Actions autorisées} \\
-  \midrule
-  \aCompleter{À compléter} & \aCompleter{À compléter} & \aCompleter{À compléter} \\
-  \bottomrule
-\end{tabularx}
-
-\subsection{Requêtes}
-\aCompleter{Qu’est-ce qui intéresse les utilisateurs de votre base de données? Définir en
-langage naturel une vingtaine de questions relativement complexes en langage naturel
-nécessitant des calculs d'agrégats, sélection, projection, jointure, requêtes imbriquées,
-intersection, union, différence et division, jointure externe etc..}
-
-
-
-\begin{description}
-  \item[Q01.] \aCompleter{Première question à définir.}
-  \item[Q02.] \aCompleter{Deuxième question à définir.}
-  
-\end{description}
-
-\subsection{Traduction du schéma E/A en relationnel}
-\aCompleter{Traduction du schéma E/A en relationnel. Lister le nom des tables avec le nom de leurs
-colonnes, en indiquant en gras les clés primaires et les clés étrangères soulignées.}
-
-
-\begin{tikzpicture}[node distance=2.3cm]
-  \node[entite] (truc) {Truc};
-  \node[association, right=of truc] (compat) {est compatible};
-  \node[entite, right=of compat] (machin) {Machin};
-
-  \draw[lien] (truc) -- node[above, font=\small]{1,1} (compat);
-  \draw[lien] (compat) -- node[above, font=\small]{0,n} (machin);
-\end{tikzpicture}
+\input{sections/07_references}
 
 \end{document}

@@ -1,0 +1,58 @@
+\subsection{Traduction du schéma E/A en relationnel}
+Cette section présente la traduction du schéma entité-association en relationnel. 
+
+\subsubsection{Tables des différentes entités}
+
+\relation{DELEGATION}{(\pk{IdDelegation}, CodeOfficiel, Nom, Nature, AuTableauMedailles)}
+
+\relation{ATHLETE}{(\pk{IdAthlete}, Nom, Prenom, DateNaissance, CategorieSportive, \fk{IdDelegation})}
+\nfk{IdDelegation}{DELEGATION}{IdDelegation}
+
+\relation{SPORT}{(\pk{IdSport}, Nom)}
+
+\relation{DISCIPLINE}{(\pk{IdDiscipline}, Nom, \fk{IdSport})}
+\nfk{IdSport}{SPORT}{IdSport}
+
+\relation{EPREUVE}{(\pk{IdEpreuve}, Nom, Categorie, Format, EffectifMin, EffectifMax, EtatClassement, \fk{IdDiscipline})}
+\nfk{IdDiscipline}{DISCIPLINE}{IdDiscipline}
+
+\relation{ENGAGEMENT}{(\pk{IdEngagement}, Libelle, EtatInscription, StatutFinal, RangFinal, Medaille, \fk{IdDelegation}, \fk{IdEpreuve})}
+\nfk{IdDelegation}{DELEGATION}{IdDelegation}\\
+\nfk{IdEpreuve}{EPREUVE}{IdEpreuve}
+
+\relation{PHASE}{(\pk{IdPhase}, Libelle, OrdrePresentation, \fk{IdEpreuve})}
+\nfk{IdEpreuve}{EPREUVE}{IdEpreuve}
+
+\relation{SITE}{(\pk{IdSite}, Nom, Commune, FuseauHoraire)}
+
+\relation{AIRE}{(\pk{IdAire}, Nom, \fk{IdSite})}
+\nfk{IdSite}{SITE}{IdSite}
+
+\relation{SESSION\_SPORTIVE}{(\pk{IdSession}, Libelle, Debut, Fin, \fk{IdSite})}
+\nfk{IdSite}{SITE}{IdSite}
+
+\relation{UNITE\_COMPETITION}{(\pk{IdUnite}, Libelle, Debut, Fin, Etat, EtatResultats, \fk{IdPhase}, \fk{IdSession}, \fk{IdAire})}
+\nfk{IdPhase}{PHASE}{IdPhase}\\
+\nfk{IdSession}{SESSION\_SPORTIVE}{IdSession}\\
+\nfk{IdAire}{AIRE}{IdAire}
+
+\relation{OFFICIEL}{(\pk{IdOfficiel}, Nom, Prenom, CourrielProfessionnel)}
+
+
+\subsubsection{Tables des associations multiples}
+
+\relation{COMPOSITION}{(\pfk{IdEngagement}, \pfk{IdAthlete}, MedailleAttribuee)}
+\nfk{IdEngagement}{ENGAGEMENT}{IdEngagement}\\
+\nfk{IdAthlete}{ATHLETE}{IdAthlete}
+
+\relation{PARTICIPATION}{(\pfk{IdEngagement}, \pfk{IdUnite}, Statut, Rang, Performance)}
+\nfk{IdEngagement}{ENGAGEMENT}{IdEngagement}\\
+\nfk{IdUnite}{UNITE\_COMPETITION}{IdUnite}
+
+\relation{AFFECTATION}{(\pfk{IdOfficiel}, \pfk{IdUnite}, Fonction)}
+\nfk{IdOfficiel}{OFFICIEL}{IdOfficiel}\\
+\nfk{IdUnite}{UNITE\_COMPETITION}{IdUnite}
+
+\relation{HABILITATION}{(\pfk{IdOfficiel}, \pfk{IdDiscipline})}
+\nfk{IdOfficiel}{OFFICIEL}{IdOfficiel}\\
+\nfk{IdDiscipline}{DISCIPLINE}{IdDiscipline}

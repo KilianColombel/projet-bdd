@@ -63,15 +63,15 @@
 \draw[ealink] (roff.east) -- node[eacard,above,pos=.92] {0..1} (off.west);
 
 \node[eaassoc] (comp) at (1.65,5.2) {Composé};
-\draw[ealink] (ath.south) -- node[eacard,left,pos=.12] {1..N} (comp.north);
-\draw[ealink] (comp.south) -- (1.65,2.4) -- node[eacard,below,pos=.83] {1..N} ([yshift=-3mm]equ.west);
+\draw[ealink] (ath.south) -- node[eacard,left,pos=.12] {0..N} (comp.north);
+\draw[ealink] (comp.south) -- (1.65,2.4) -- node[eacard,below,pos=.83] {0..N} ([yshift=-3mm]equ.west);
 
 \node[eaassoc] (enc) at (5.85,5.5) {Encadre};
-\draw[ealink] (ent.south) -- node[eacard,right,pos=.13] {1..N} (enc.north);
-\draw[ealink] (enc.south) -- node[eacard,right,pos=.82] {1..N} (equ.north);
+\draw[ealink] (ent.south) -- node[eacard,right,pos=.13] {0..N} (enc.north);
+\draw[ealink] (enc.south) -- node[eacard,right,pos=.82] {0..N} (equ.north);
 
 \node[eaassoc] (spe) at (8.925,10.0) {Spécialisé};
-\draw[ealink] (ent.east) -- node[eacard,above right,pos=.08] {1..N} (spe.west);
+\draw[ealink] (ent.east) -- node[eacard,above right,pos=.08] {0..N} (spe.west);
 \draw[ealink] (spe.east) -- node[eacard,above left,pos=.92] {0..N} (dis.west);
 
 \node[eaassoc] (eng) at (8.6,6.5) {Engagé};
@@ -79,7 +79,7 @@
 \draw[ealink] (eng.north) -- (8.6,9.0) -- node[eacard,above,pos=.72] {0..N} ([yshift=-10mm]dis.west);
 
 \node[eaassoc] (cont) at (15.5,3.1) {Comporte};
-\draw[ealink] (dis.south) -- node[eacard,right,pos=.09] {1..N}
+\draw[ealink] (dis.south) -- node[eacard,right,pos=.09] {0..N}
 (12.0,3.1) -- (cont.west);
 \draw[ealink] (cont.east) -- node[eacard,above left,pos=.92] {1..1}
 ([yshift=4mm]epr.west);
@@ -89,15 +89,15 @@
 \draw[ealink] (aff.east) -- node[eacard,above left,pos=.87] {1..1} ([yshift=-8mm]off.west);
 
 \node[eaassoc] (arb) at (24.0,10.8) {Supervise};
-\draw[ealink] ([xshift=8mm]off.south) -- node[eacard,right,pos=.12] {1..N} (arb.north);
-\draw[ealink] (arb.south) -- node[eacard,right,pos=.88] {1..N} ([xshift=8mm]epr.north);
+\draw[ealink] ([xshift=8mm]off.south) -- node[eacard,right,pos=.12] {0..N} (arb.north);
+\draw[ealink] (arb.south) -- node[eacard,right,pos=.88] {0..N} ([xshift=8mm]epr.north);
 
 \node[eaassoc] (acc) at (21.6,5.8) {Accueille};
 \draw[ealink] (lie.east) -- node[eacard,above,pos=.5] {0..N} (acc.west);
 \draw[ealink] (acc.east) -- (22.7,5.8) -- node[eacard,left,pos=.75] {1..1} ([xshift=-5mm]epr.north);
 
 \node[eaassoc,aspect=1.5] (nec) at (15.2,10.8) {Nécessite\\quantité};
-\draw[ealink] ([yshift=8mm]dis.east) -- node[eacard,above,pos=.5] {1..N} (nec.west);
+\draw[ealink] ([yshift=8mm]dis.east) -- node[eacard,above,pos=.5] {0..N} (nec.west);
 \draw[ealink] (nec.east) -- node[eacard,above,pos=.5] {0..N} (mat.west);
 
 \node[eaassoc,aspect=1.5] (sto) at (18.4,8.3) {Stocke\\quantité};

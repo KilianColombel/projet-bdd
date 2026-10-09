@@ -1,1 +1,28 @@
 \subsection{Modélisation}
+
+\subsubsection{Choix retenus pour le schéma}
+\begin{itemize}[itemsep=0.5em]
+  \item \textbf{Périmètre.} Nous nous limitons aux Jeux de Paris 2024. Le sport est indiqué dans la discipline : ses épreuves sont donc accessibles en passant par les disciplines qui lui correspondent.
+  \item \textbf{Participation.} Nous avons gardé un seul modèle pour les compétitions individuelles et collectives : dans le premier cas, l'équipe contient un seul athlète. Chaque équipe concourt dans une seule discipline et sa composition reste stable pendant les Jeux. Son effectif se calcule en comptant les athlètes liés par \emph{Composé}, dans les limites fixées par la discipline.
+  \item \textbf{Inscriptions et résultats.} \emph{Participe} enregistre l'inscription d'une équipe avant son résultat. Chaque résultat concerne une équipe et une épreuve précise. Une équipe peut en avoir plusieurs, ou aucun ; les résultats d'un athlète se retrouvent par ses équipes.
+  \item \textbf{Délégations et équipes.} Un athlète, un entraîneur ou une équipe appartient à une seule délégation, mais une délégation peut encore être vide. Un officiel peut être indépendant ou rattaché à une délégation. Nous considérons des équipes déjà constituées, avec au moins un athlète et un entraîneur. Chaque athlète et chaque entraîneur fait partie d'au moins une équipe.
+  \item \textbf{Encadrement.} Un entraîneur suit tous les athlètes de ses équipes et possède une ou plusieurs spécialités. Un officiel est affecté à une seule discipline et supervise au moins une de ses épreuves.
+  \item \textbf{Épreuves et lieux.} Chaque course, série ou rencontre constitue une épreuve, avec un seul lieu, un sexe concerné et l'indication d'une attribution de médaille. Plusieurs épreuves peuvent avoir la même phase. Les lieux utilisés par une discipline se retrouvent par ses épreuves, sans lien direct supplémentaire.
+  \item \textbf{Sexe et mixité.} Dans une épreuve réservée aux hommes ou aux femmes, tous les athlètes inscrits doivent avoir le sexe correspondant. Une épreuve mixte accepte les deux sexes ; chaque équipe collective doit alors compter au moins un athlète de chaque sexe. Des règles propres à la discipline peuvent préciser les proportions.
+  \item \textbf{Matériel et réservations.} \emph{Stocke} donne les quantités fixes par lieu, sans échange entre les sites ; leur somme donne le total disponible. \emph{Nécessite} indique le besoin par discipline et \emph{Réserver} la quantité réservée pour une épreuve. La réservation reprend le lieu et les horaires de l'épreuve ; elle est active ou annulée.
+\end{itemize}
+
+% schéma e-a
+\subsubsection{Schéma entité-association}
+\vfill
+\noindent\makebox[\textwidth][c]{%
+    \resizebox{!}{0.9\textheight}{%
+        \rotatebox{90}{%
+            \begin{minipage}{25cm}
+                \centering
+                \input{figures/schema_ea}
+            \end{minipage}%
+        }%
+    }%
+}
+\vfill

@@ -1,1 +1,56 @@
-\subsection{Cahier des charges}
+\subsection{Cahier des charges : Base de données des Jeux Olympiques}
+
+\subsubsection{Contexte et objectif}
+% Jibril
+Les Jeux Olympiques réunissent tous les quatre ans des milliers d'athlètes issus de plus de 200 pays autour de dizaines de disciplines sportives. Le Comité d'organisation doit gérer une masse importante d'informations : qui participe, pour quelle délégation, dans quelle discipline, à quel endroit, sous la supervision de qui, et avec quels résultats et pleins d’autres facteurs.
+% Jibril
+Notre objectif est de centraliser ces informations dans une base de données relationnelle fiable, permettant de suivre l'organisation des épreuves, d'enregistrer les performances et de produire des statistiques (tableaux de médailles, palmarès, plannings, etc.)
+
+\subsubsection{Description des besoins par concept}
+
+% Alban:
+% Délégation 
+% Équipe 
+% Entraîneur 
+
+% Kilian:
+% Épreuve 
+% Résultat 
+% Équipement 
+
+% Jibril: 
+% Officiel 
+% Lieu 
+% Discipline 
+% Athlète
+
+% Jibril
+\textbf{Athlète:} Un athlète est défini de manière unique. On a des informations sur son nom, son prénom, sa taille, son année de naissance, son sexe, son poids(sport de combats) et sa nationnalité. Il peut appartenir à une seule délégation et peut participer à  une ou plusieurs discipline comme épreuves (individuelles ou par équipe)
+
+% Jibril
+\textbf{Discipline:} Une discipline correspond à une compétition précise (400M nage libre par ex..) au sein d’un sport olympique (natation, athlétisme, judo, etc..). On a des informations sur le nom, la catégorie (Individuelle, équipe), son type de mesure (temps, distance, points) et une description. Une discipline peut se dérouler en plusieurs épreuves, se dérouler dans un ou plusieurs lieux et mobilise du matériel spécifique.
+
+% Jibril
+\textbf{Lieu:} Le lieu correspond aux sites de compétitions (stades, piscines, salles, villages olympiques). On a des informations sur le nom, la ville, la capacité d'accueil (nb de places possible pour les spectateurs), le type d’installation et l’adresse. Il peut accueillir plusieurs disciplines (pas en même temps), plusieurs épreuves (en même temps).
+
+% Jibril
+\textbf{Officiel:} Les officiels sont les arbitres, juges, chronométreurs et délégués techniques. On a des informations sur le nom, prénom, nationalité, rôle et niveau de qualification. Un officiel est affecté à une discipline, une ou plusieurs épreuves. Il ne peut pas être affecté à une épreuve impliquant des athlètes de sa nationalité (règles d’impartialité).
+
+% Alban
+\textbf{Délégation:} Une délégation représente une nation participant aux Jeux Olympiques, telle qu'elle est inscrite par son Comité National Olympique (CNO). Chaque délégation est unique et porte le nom de son pays. Elle regroupe l'ensemble des personnes rattachées à cette nation : athlètes, équipes, entraîneurs et officiels.
+
+% Alban
+\textbf{Équipe:} Une équipe regroupe les athlètes engagés ensemble dans une discipline donnée, ainsi que les entraîneurs qui les encadrent. Une équipe appartient à une seule délégation, mais une délégation peut engager plusieurs équipes. Une équipe peut être composée d'un seul athlète (épreuves individuelles) ou de plusieurs, et un même athlète ou entraîneur peut faire partie de plusieurs équipes. Chaque équipe peut obtenir zéro, un ou plusieurs résultats qui reflètent la performance réalisée par ses membres lors des épreuves.
+
+% Alban
+\needspace{8\baselineskip}
+\textbf{Entraîneur:} Un entraîneur représente une personne chargée d'encadrer et de suivre des athlètes pendant toute la durée des Jeux. Chaque entraîneur appartient à une seule délégation. Selon la ou les disciplines dans lesquelles il est spécialisé, il peut encadrer un ou plusieurs athlètes, répartis dans une ou plusieurs équipes. Un entraîneur est caractérisé par son nom, son prénom, sa date de naissance, son numéro de carte professionnelle et sa nationalité. Chaque entraîneur est identifié de manière unique par son numéro de carte professionnelle.
+
+% Kilian
+\textbf{Épreuve :} Une épreuve désigne une course, une série ou une rencontre dans une discipline olympique. Elle appartient à une seule discipline, qui peut regrouper plusieurs épreuves. On connaît sa date, ses heures de début et de fin, sa phase de compétition (qualification, demi-finale, finale, etc.) et le sexe concerné : hommes, femmes ou mixte. Plusieurs épreuves peuvent avoir la même phase, par exemple lorsqu'il y a plusieurs demi-finales. On indique aussi si l'épreuve attribue une médaille. Elle se déroule dans un seul lieu, sous la supervision d'un ou plusieurs officiels. Les participants sont inscrits sous forme d'équipes, avec un seul athlète pour les épreuves individuelles, et leurs résultats sont enregistrés à l'issue de l'épreuve.
+
+% Kilian
+\textbf{Résultat :} Un résultat donne la performance d'une équipe dans une épreuve à laquelle elle est inscrite. Pour une épreuve individuelle, cette équipe ne contient qu'un athlète. Chaque résultat concerne une seule équipe et une seule épreuve ; une équipe peut donc avoir plusieurs résultats au cours des Jeux, mais jamais deux pour la même épreuve. Tant qu'aucun résultat n'est enregistré, elle peut aussi n'en avoir aucun. On conserve la performance (temps, distance, points, etc.), le classement et le statut, par exemple validé, disqualifié ou abandon. Les performances d'une même discipline utilisent une unité commune. Le classement correspond au rang dans l'épreuve, avec des ex æquo possibles, et pas forcément au classement final de la compétition. En cas d'abandon ou de disqualification, la performance et le classement peuvent manquer. Si l'épreuve attribue une médaille, un résultat validé peut également indiquer l'or, l'argent ou le bronze. La médaille est renseignée selon les règles de la compétition, sans être calculée automatiquement à partir du rang dans l'épreuve.
+
+% Kilian
+\textbf{Équipement :} Un équipement peut être du matériel, comme un tapis de judo, ou une installation fixe, comme une piste d'athlétisme. On conserve son nom, son type, sa description et la quantité totale disponible pour les Jeux. Ce total est obtenu en additionnant les quantités présentes sur les différents lieux. Un même équipement peut servir à plusieurs disciplines, et une discipline peut en nécessiter plusieurs types. Chaque lieu garde ses propres équipements pendant toute la durée des Jeux : nous ne prévoyons pas d'échange entre les sites. Pour préparer une épreuve, on réserve les équipements sur le lieu où elle se déroule, pendant son créneau horaire. La quantité réservée doit couvrir le besoin de sa discipline, tout en laissant assez d'équipement pour les autres épreuves prévues au même moment.

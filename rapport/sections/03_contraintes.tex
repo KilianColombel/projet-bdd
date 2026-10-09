@@ -1,1 +1,19 @@
-\subsection{Contraintes}
+\subsection{Règles et contraintes}
+
+\begin{enumerate}[itemsep=0.3em]
+  \item Une équipe doit être inscrite à une épreuve par \emph{Participe} pour y obtenir un résultat. Elle ne peut avoir qu'un seul résultat pour cette épreuve.
+  \item Un athlète ne peut pas participer à la même épreuve dans deux équipes différentes, même s'il fait partie de plusieurs équipes.
+  \item Plusieurs participants peuvent finir au même rang : les ex æquo sont autorisés. En cas d'abandon ou de disqualification, la performance et le classement peuvent manquer.
+  \item Un résultat ne peut indiquer une médaille d'or, d'argent ou de bronze que s'il est validé et que l'épreuve attribue une médaille. Dans les autres cas, aucune médaille n'est renseignée. L'attribution suit les règles de la compétition et ne se calcule pas automatiquement à partir du rang dans l'épreuve. Une finale n'attribue pas forcément une médaille. Pour le tableau des médailles d'une délégation, une médaille collective compte une seule fois.
+  \item Tous les athlètes d'une équipe doivent appartenir à la même délégation que cette équipe.
+  \item Le nombre d'athlètes d'une équipe, comptés à partir de \emph{Composé}, doit rester entre le minimum et le maximum fixés par sa discipline. Pour une discipline individuelle, ces deux limites valent 1.
+  \item Une équipe ne peut participer qu'aux épreuves de sa discipline. Chaque entraîneur doit être spécialisé dans la discipline des équipes qu'il encadre.
+  \item Un officiel supervise uniquement des épreuves de sa discipline d'affectation. Qu'il soit indépendant ou rattaché à une délégation, il ne peut pas superviser une épreuve où participe un athlète de sa nationalité.
+  \item Une épreuve doit se terminer après son heure de début. Le sexe concerné est indiqué par l'une des valeurs suivantes : hommes, femmes ou mixte.
+  \item Dans une épreuve "hommes" ou "femmes", tous les athlètes inscrits doivent avoir le sexe correspondant. Dans une épreuve "mixte", chaque équipe collective compte au moins un athlète de chaque sexe ; une épreuve individuelle peut accueillir les deux sexes.
+  \item Un lieu ne peut pas accueillir deux disciplines différentes au même moment. En revanche, plusieurs épreuves d'une même discipline peuvent s'y dérouler simultanément. Un athlète, un entraîneur ou un officiel ne doit pas avoir deux engagements incompatibles dans le temps.
+  \item Une épreuve doit disposer d'une réservation active pour chaque équipement nécessaire à sa discipline, sur le lieu où elle se déroule. La quantité réservée par \emph{Réserver} doit être au moins égale au besoin indiqué par \emph{Nécessite}. Une réservation annulée ne couvre pas ce besoin.
+  \item À chaque instant, le total des quantités réservées par les réservations actives en cours pour un même équipement sur un même lieu ne doit pas dépasser la quantité indiquée par \emph{Stocke}. Une réservation annulée ne bloque plus l'équipement. La réservation commence au début de l'épreuve et se termine à son heure de fin : deux épreuves qui se suivent sans se chevaucher peuvent donc réutiliser le même équipement.
+  \item On ne peut réserver que les équipements nécessaires à la discipline de l'épreuve. Les quantités réservées et stockées sont des nombres entiers, supérieurs ou égaux à zéro ; la quantité requise doit être strictement positive.
+  \item La quantité totale disponible d'un équipement est la somme des quantités indiquées par \emph{Stocke} sur les lieux. Cette répartition reste fixe pendant les Jeux, sans échange entre les sites. Une épreuve réserve uniquement les équipements de son propre lieu.
+\end{enumerate}

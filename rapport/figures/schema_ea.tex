@@ -1,0 +1,122 @@
+\begin{tikzpicture}[
+  eaent/.style={rectangle split, rectangle split parts=2,
+    rectangle split part align={center,left}, draw=black,
+    rectangle split part fill={black!8,white},
+    text width=2.65cm, inner xsep=5pt, inner ysep=4pt,
+    font=\fontsize{8}{9.5}\selectfont},
+  eaassoc/.style={diamond,aspect=2.3,draw=black,fill=white,align=center,
+    inner xsep=1.5pt,inner ysep=1.5pt,font=\fontsize{8}{9}\selectfont},
+  ealink/.style={draw=black,line width=0.5pt},
+  eacard/.style={fill=white,inner sep=1.3pt,
+    font=\fontsize{8}{9}\selectfont}
+]
+
+% entités + attributs
+\node[eaent] (ath) at (1.65,10) {\textbf{ATHLÈTE}\nodepart{second}
+\underline{Identifiant athlète}\\Nom\\Prénom\\Taille\\Année de naissance\\Sexe\\Poids\\Nationalité};
+
+\node[eaent] (del) at (5.85,13.8) {\textbf{DÉLÉGATION}\nodepart{second}
+\underline{Identifiant délégation}\\Nom du pays};
+
+\node[eaent] (ent) at (5.85,10) {\textbf{ENTRAÎNEUR}\nodepart{second}
+\underline{N\textsuperscript{o} carte pro.}\\Nom\\Prénom\\Date de naissance\\Nationalité};
+
+\node[eaent] (equ) at (5.85,2.7) {\textbf{ÉQUIPE}\nodepart{second}
+\underline{Identifiant équipe}\\Effectif actuel (calculé)};
+
+\node[eaent] (dis) at (12,10) {\textbf{DISCIPLINE}\nodepart{second}
+\underline{Identifiant discipline}\\Nom\\Sport\\Catégorie\\Effectif minimal\\Effectif maximal\\Type de mesure\\Description};
+
+\node[eaent,text width=3.1cm] (off) at (23.2,13.8) {\textbf{OFFICIEL}\nodepart{second}
+\underline{Identifiant officiel}\\Nom\\Prénom\\Nationalité\\Rôle\\Niveau de qualification};
+
+\node[eaent,text width=3.1cm] (epr) at (23.2,2.7) {\textbf{ÉPREUVE}\nodepart{second}
+\underline{Identifiant épreuve}\\Date\\Heure de début\\Heure de fin\\Phase de compétition\\Sexe concerné\\Attribue une médaille};
+
+\node[eaent] (lie) at (18.4,5.8) {\textbf{LIEU}\nodepart{second}
+\underline{Identifiant lieu}\\Nom\\Ville\\Capacité d'accueil\\Type d'installation\\Adresse};
+
+\node[eaent] (mat) at (18.4,10.8) {\textbf{ÉQUIPEMENT}\nodepart{second}
+\underline{Id. équipement}\\Nom\\Type\\Description\\Quantité disponible (calculée)};
+
+\node[eaent] (res) at (12,0.1) {\textbf{RÉSULTAT}\nodepart{second}
+\underline{Identifiant résultat}\\Performance\\Classement\\Statut\\Médaille};
+
+
+
+
+% associations
+\node[eaassoc] (rath) at (1.65,12.5) {Rattaché};
+\draw[ealink] (del.west) -- node[eacard,above,pos=.25] {0..N} (1.65,13.8) -- (rath.north);
+\draw[ealink] (rath.south) -- node[eacard,right,pos=.65] {1..1} (ath.north);
+
+\node[eaassoc] (rent) at (5.85,12.0) {Rattaché};
+\draw[ealink] (del.south) -- node[eacard,right,pos=.40] {0..N} (rent.north);
+\draw[ealink] (rent.south) -- node[eacard,right,pos=.60] {1..1} (ent.north);
+
+\node[eaassoc] (req) at (3.85,6.8) {Engagé};
+\draw[ealink] (del.south west) -- (req |- del.south west) -- node[eacard,left,pos=.07] {0..N} (req.north);
+\draw[ealink] (req.south) -- (3.85,3) -- node[eacard,above left,pos=0] {1..1} ([yshift=3mm]equ.west);
+
+\node[eaassoc] (roff) at (14.5,13.8) {Rattaché};
+\draw[ealink] (del.east) -- node[eacard,above,pos=.08] {0..N} (roff.west);
+\draw[ealink] (roff.east) -- node[eacard,above,pos=.92] {0..1} (off.west);
+
+\node[eaassoc] (comp) at (1.65,5.2) {Composé};
+\draw[ealink] (ath.south) -- node[eacard,left,pos=.12] {1..N} (comp.north);
+\draw[ealink] (comp.south) -- (1.65,2.4) -- node[eacard,below,pos=.83] {1..N} ([yshift=-3mm]equ.west);
+
+\node[eaassoc] (enc) at (5.85,5.5) {Encadre};
+\draw[ealink] (ent.south) -- node[eacard,right,pos=.13] {1..N} (enc.north);
+\draw[ealink] (enc.south) -- node[eacard,right,pos=.82] {1..N} (equ.north);
+
+\node[eaassoc] (spe) at (8.925,10.0) {Spécialisé};
+\draw[ealink] (ent.east) -- node[eacard,above right,pos=.08] {1..N} (spe.west);
+\draw[ealink] (spe.east) -- node[eacard,above left,pos=.92] {0..N} (dis.west);
+
+\node[eaassoc] (eng) at (8.6,6.5) {Engagé};
+\draw[ealink] ([yshift=2mm]equ.east) -- node[eacard,below,pos=.48] {1..1} (8.6,2.9) -- (eng.south);
+\draw[ealink] (eng.north) -- (8.6,9.0) -- node[eacard,above,pos=.72] {0..N} ([yshift=-10mm]dis.west);
+
+\node[eaassoc] (cont) at (15.5,3.1) {Comporte};
+\draw[ealink] (dis.south) -- node[eacard,right,pos=.09] {1..N}
+(12.0,3.1) -- (cont.west);
+\draw[ealink] (cont.east) -- node[eacard,above left,pos=.92] {1..1}
+([yshift=4mm]epr.west);
+
+\node[eaassoc] (aff) at (17.0,13.0) {Affecté};
+\draw[ealink] (dis.north) -- node[eacard,right,pos=.27] {0..N} (12.0,13.0) -- (aff.west);
+\draw[ealink] (aff.east) -- node[eacard,above left,pos=.87] {1..1} ([yshift=-8mm]off.west);
+
+\node[eaassoc] (arb) at (24.0,10.8) {Supervise};
+\draw[ealink] ([xshift=8mm]off.south) -- node[eacard,right,pos=.12] {1..N} (arb.north);
+\draw[ealink] (arb.south) -- node[eacard,right,pos=.88] {1..N} ([xshift=8mm]epr.north);
+
+\node[eaassoc] (acc) at (21.6,5.8) {Accueille};
+\draw[ealink] (lie.east) -- node[eacard,above,pos=.5] {0..N} (acc.west);
+\draw[ealink] (acc.east) -- (22.7,5.8) -- node[eacard,left,pos=.75] {1..1} ([xshift=-5mm]epr.north);
+
+\node[eaassoc,aspect=1.5] (nec) at (15.2,10.8) {Nécessite\\quantité};
+\draw[ealink] ([yshift=8mm]dis.east) -- node[eacard,above,pos=.5] {1..N} (nec.west);
+\draw[ealink] (nec.east) -- node[eacard,above,pos=.5] {0..N} (mat.west);
+
+\node[eaassoc,aspect=1.5] (sto) at (18.4,8.3) {Stocke\\quantité};
+\draw[ealink] (mat.south) -- node[eacard,left,pos=.45] {0..N} (sto.north);
+\draw[ealink] (sto.south) -- node[eacard,right,pos=.55] {0..N} (lie.north);
+
+\node[eaassoc,aspect=2.2] (resv) at (21.5,8.3) {Réserver\\quantité\\statut};
+\draw[ealink] (mat.east) -- node[eacard,above,pos=.3] {0..N} (21.5,10.8) -- (resv.north);
+\draw[ealink] (resv.east) -- (23.5,8.3) -- node[eacard,left,pos=.9] {0..N} ([xshift=3mm]epr.north);
+
+\node[eaassoc] (par) at (12.8,2.4) {Participe};
+\draw[ealink] ([yshift=-3mm]equ.east) -- node[eacard,below,pos=.10] {0..N} (par.west);
+\draw[ealink] (par.east) -- node[eacard,below,pos=.90] {0..N} ([yshift=-3mm]epr.west);
+
+\node[eaassoc] (obt) at (8.5,0.1) {Obtient};
+\draw[ealink] (equ.south) -- node[eacard,right,pos=.20] {0..N} (5.85,0.1) -- (obt.west);
+\draw[ealink] (obt.east) -- node[eacard,above left,pos=.82] {1..1} (res.west);
+
+\node[eaassoc] (prod) at (18.0,0.1) {Produit};
+\draw[ealink] (res.east) -- node[eacard,above right,pos=.14] {1..1} (prod.west);
+\draw[ealink] (prod.east) -- (23.2,0.1) -- node[eacard,right,pos=.70] {0..N} (epr.south);
+\end{tikzpicture}

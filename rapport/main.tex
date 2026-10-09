@@ -3,7 +3,6 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[french]{babel}
-\usepackage{lmodern}
 \usepackage{microtype}
 \usepackage[margin=2.5cm,headheight=15pt]{geometry}
 \usepackage{xcolor}
@@ -13,21 +12,21 @@
 \usepackage{fancyhdr}
 \usepackage{booktabs,tabularx,array}
 \usepackage{listings}
-\usepackage{longtable,enumitem,needspace,pdflscape}
+\usepackage{longtable,enumitem,needspace}
 \usepackage{hyperref}
 
 \usepackage{tikz}
-\usetikzlibrary{positioning,arrows.meta,shapes.geometric,calc}
+\usetikzlibrary{positioning,arrows.meta,shapes.geometric,shapes.multipart,calc}
 \tikzset{
   entite/.style={
     draw=accent, rounded corners=3pt, fill=accent!7,
     minimum width=3cm, minimum height=0.9cm,
-    align=center, font=\sffamily\bfseries
+    align=center, font=\bfseries
   },
   association/.style={
     draw=discret, diamond, aspect=2, fill=white,
     minimum width=2cm, minimum height=0.8cm,
-    align=center, font=\sffamily
+    align=center, font=\normalfont
   },
   lien/.style={draw=discret, -{Latex[length=2mm]}}
 }
@@ -40,7 +39,7 @@
 \newcommand{\AuteurUn}{Jibril Sehil}
 \newcommand{\AuteurDeux}{Alban Vautier}
 \newcommand{\AuteurTrois}{Kilian Colombel}
-\newcommand{\FichierLogo}{UVSQ.jpg}
+\newcommand{\FichierLogo}{figures/UVSQ.jpg}
 
 
 
@@ -74,14 +73,20 @@
 \setcounter{tocdepth}{2}
 
 \titleformat{\section}
-  {\Large\sffamily\bfseries\color{encre}}
+  {\LARGE\bfseries\color{encre}}
   {\color{accent}\thesection}{0.7em}{}
   
 \titleformat{\subsection}
-  {\large\sffamily\bfseries\color{accent}}
-  {\thesubsection}{0.7em}{}
-\titlespacing*{\section}{0pt}{1.6em}{0.7em}
-\titlespacing*{\subsection}{0pt}{1em}{0.3em}
+  {\large\bfseries\color{accent}}
+  {\thesubsection}{0.7em}{}[\vspace{0.4ex}\titlerule]
+
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\color{accent}}
+  {\thesubsubsection}{0.7em}{}
+  
+\titlespacing*{\section}{0pt}{1.6em}{0.3em}
+\titlespacing*{\subsection}{0pt}{1em}{1.6em}
+\titlespacing*{\subsubsection}{0pt}{2em}{0em}
 
 % PIEDS DE PAGE
 % \pagestyle{fancy}
@@ -99,14 +104,14 @@
 \newcommand{\emplacementFigure}[1]{
   \fcolorbox{trait}{fondcode}{
     \parbox[c][3cm][c]{0.93\linewidth}{
-      \centering\sffamily\color{discret}#1}}}
+      \centering\color{discret}#1}}}
 
 
 \lstdefinestyle{sqlprojet}{
   language=SQL,
   morekeywords={DECLARE,BEGIN,END,EXCEPTION,RETURN,LOOP,ELSIF,
     DBMS_OUTPUT,PUT_LINE,RAISE_APPLICATION_ERROR},
-  basicstyle=\small\ttfamily,
+  basicstyle=\small,
   keywordstyle=\bfseries\color{accent},
   commentstyle=\itshape\color{discret},
   stringstyle=\color{brown},
@@ -140,8 +145,8 @@
 \newcommand{\relation}[2]{\vspace{1em}\needspace{3\baselineskip}\noindent\textbf{#1}{#2}\par}
 \tikzset{
   ce/.style={draw=accent,rounded corners=2pt,fill=accent!7,align=center,
-    font=\small\sffamily\bfseries,minimum width=2.65cm,minimum height=0.85cm},
-  ca/.style={draw=discret,ellipse,fill=white,align=center,font=\scriptsize\sffamily,
+    font=\small\bfseries,minimum width=2.65cm,minimum height=0.85cm},
+  ca/.style={draw=discret,ellipse,fill=white,align=center,font=\scriptsize,
     minimum width=1.8cm,minimum height=0.65cm,inner sep=2pt},
   cl/.style={draw=discret},
   cc/.style={font=\scriptsize,fill=white,inner sep=1.5pt,text=encre}
@@ -162,7 +167,6 @@
               \includegraphics[width=3cm,height=3cm,keepaspectratio]{\FichierLogo}}}}}
     }
   }{}
-  \sffamily
   {\large\color{encre}\UE\par}
   {\color{discret}\Formation\enspace - \enspace\Annee\par}
   \vspace{0.7cm}
@@ -204,17 +208,11 @@
 \clearpage
 
 \input{sections/03_contraintes}
-\clearpage
 
-\input{sections/04_droits_et_vues}
-\clearpage
-
-\input{sections/05_questions}
-\clearpage
-
-\input{sections/06_schema_relationnel}
-\clearpage
-
-\input{sections/07_references}
+% Sections conservées dans le projet, à activer après rédaction collective.
+% \input{sections/04_droits_et_vues}
+% \input{sections/05_questions}
+% \input{sections/06_schema_relationnel}
+% \input{sections/07_references}
 
 \end{document}

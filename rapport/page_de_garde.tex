@@ -1,0 +1,36 @@
+\begin{titlepage}
+  \setlength{\parindent}{0pt}
+  \setlength{\parskip}{2ex}
+
+  \IfFileExists{\FichierLogo}{
+    \AddToShipoutPictureFG*{
+      \AtPageUpperLeft{
+        \put(\LenToUnit{\dimexpr\paperwidth-2.5cm\relax},\LenToUnit{-2.2cm}){
+          \makebox[0pt][r]{
+            \raisebox{-\height}[0pt][0pt]{
+              \includegraphics[width=3cm,height=3cm,keepaspectratio]{\FichierLogo}}}}}
+    }
+  }{}
+  {\large\color{encre}\UE\par}
+  {\Annee\par}
+  \vspace{0.7cm}
+  {\color{accent}\rule{\linewidth}{1.5pt}\par}
+
+  \vspace{2.3cm}
+  {\small\bfseries\color{accent}PROJET ORACLE\par}
+  \vspace{0.4cm}
+  {\fontsize{30}{36}\selectfont\bfseries\color{encre}\TitreProjet\par}
+  \vspace{0.55cm}
+  {\Large\color{discret}\SousTitre\par}
+
+  \vfill
+  \begin{minipage}[t]{0.54\textwidth}
+    {\small\bfseries\color{accent}GROUPE\par}
+    \vspace{0.2cm}
+    \AuteurUn\par
+    \AuteurDeux\par
+    \AuteurTrois\par
+    \vspace{0.15cm}
+  \end{minipage}\hfill
+  \vspace{0.8cm}
+\end{titlepage}

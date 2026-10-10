@@ -1,0 +1,72 @@
+% Langue, typographie et format de page.
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{microtype}
+\usepackage[margin=2.5cm,headheight=15pt]{geometry}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{eso-pic}
+\usepackage{titlesec}
+\usepackage{enumitem}
+
+% Schéma entité-association.
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,shapes.geometric,shapes.multipart,calc}
+
+% Liens et signets du PDF
+\usepackage{hyperref}
+\definecolor{accent}{HTML}{000000}
+\definecolor{encre}{HTML}{000000}
+\definecolor{discret}{HTML}{000000}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=accent,urlcolor=accent,citecolor=accent,
+  hypertexnames=false,
+  bookmarksdepth=3
+}
+\urlstyle{same}
+
+% Paragraphes
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.7\baselineskip}
+\setlength{\emergencystretch}{2em}
+\raggedbottom
+
+% Sommaire
+\setcounter{tocdepth}{3}
+
+% Titres
+\titleformat{\section}
+  {\LARGE\bfseries\color{encre}}
+  {\thesection}{0.7em}{}
+\titleformat{\subsection}
+  {\large\bfseries\color{encre}}
+  {\thesubsection}{0.7em}{}[\vspace{0.4ex}\titlerule]
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\color{encre}}
+  {\thesubsubsection}{0.7em}{}
+\titlespacing*{\section}{0pt}{1.6em}{0.7em}
+\titlespacing*{\subsection}{0pt}{1.4em}{0.7em}
+\titlespacing*{\subsubsection}{0pt}{1.4em}{0.7em}
+
+% Listes
+\setlist{
+  itemsep=0.7\baselineskip,
+  parsep=0pt,topsep=0pt,partopsep=0pt,
+  listparindent=0pt,
+  before=\interlinepenalty10000
+}
+\setlist[itemize]{label=\textbf{-},leftmargin=1.8em,labelsep=0.6em}
+\setlist[enumerate]{label=\textbf{\arabic*},leftmargin=1.8em,labelsep=0.6em}
+
+% Descriptions de concepts
+\newlist{concepts}{itemize}{1}
+\setlist[concepts]{label={},leftmargin=0pt}
+
+% Contraintes
+\newlist{contraintes}{enumerate}{1}
+\setlist[contraintes]{
+  label=\textbf{C\arabic*},ref=C\arabic*,
+  leftmargin=2.8em,labelwidth=2.2em,labelsep=0.6em
+}

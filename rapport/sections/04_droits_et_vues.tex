@@ -28,6 +28,8 @@ Les droits d'accès aux données dépendent du profil de l'utilisateur. Le table
     \hline
     \textbf{Discipline} & L, I, M, S & L, I, M, S & L & L & L \\
     \hline
+    \textbf{Sport} & L, I, M, S & L, I, M, S & L & L & L \\
+    \hline
     \textbf{Épreuve} & L, I, M, S & L, I, M, S & L & L & L \\
     \hline
     \textbf{Lieu} & L, I, M, S & L, I, M, S & L & L & L \\
@@ -36,8 +38,6 @@ Les droits d'accès aux données dépendent du profil de l'utilisateur. Le table
     \hline
     \textbf{Équipement} & L, I, M, S & L, I, M, S & Aucun & L & Aucun \\
     \hline
-    \textbf{Résultat} & L, I, M, S & L, M (validation) & L (validés) & L, I, M (provisoires de ses épreuves) & L (validés) \\
-    \hline
   \end{tabular}
   \caption{Droits par concept}
   \label{tab:droits-concepts}
@@ -45,7 +45,7 @@ Les droits d'accès aux données dépendent du profil de l'utilisateur. Le table
   {\footnotesize\textit{Légende : L = lecture, I = insertion, M = modification, S = suppression. (partiel) = accès uniquement via une vue qui masque les données sensibles (poids, taille, date de naissance).}}
 \end{table}
 
-Ces droits suivent le principe du moindre privilège : chaque profil n'accède qu'aux données utiles à son rôle. L'administrateur dispose de tous les droits, tandis que l'organisateur gère le cadre des Jeux (disciplines, épreuves, lieux, officiels, équipements) mais ne peut que consulter les participants. Le responsable de délégation ne gère que les athlètes, équipes et entraîneurs de sa propre délégation. Les données sensibles des athlètes (poids, taille, date de naissance) ne sont accessibles au public et aux officiels qu'au travers d'une vue qui les masque, et les résultats ne deviennent publics qu'une fois validés par l'organisateur.
+Ces droits suivent le principe du moindre privilège : chaque profil n'accède qu'aux données utiles à son rôle. L'administrateur dispose de tous les droits, tandis que l'organisateur gère le cadre des Jeux (sports, disciplines, épreuves, lieux, officiels, équipements) mais ne peut que consulter les participants. Le responsable de délégation ne gère que les athlètes, équipes et entraîneurs de sa propre délégation, ainsi que les disciplines pratiquées par ces athlètes. Les données sensibles des athlètes (poids, taille, date de naissance) ne sont accessibles au public et aux officiels qu'au travers d'une vue qui les masque, et les résultats ne deviennent publics qu'une fois validés par l'organisateur.
 
 \subsubsection{Droits sur les associations}
 
@@ -85,6 +85,10 @@ Les droits sur les associations reprennent la même logique que pour les concept
   \hline
   \textbf{Spécialisé} (entraîneur -- discipline) & L, I, M, S & L & L, I, M, S (sa délégation) & Aucun & Aucun \\
   \hline
+  \textbf{Pratique} (athlète -- discipline) & L, I, M, S & L & L, I, M, S (sa délégation) & Aucun & Aucun \\
+  \hline
+  \textbf{Regroupe} (sport -- discipline) & L, I, M, S & L, I, M, S & L & L & L \\
+  \hline
   \textbf{Concourt} (équipe -- discipline) & L, I, M, S & L & L, I, M, S (sa délégation) & L & L \\
   \hline
   \textbf{Participe} (équipe -- épreuve) & L, I, M, S & L & L, I, S (sa délégation) & L (ses épreuves) & Aucun \\
@@ -105,9 +109,7 @@ Les droits sur les associations reprennent la même logique que pour les concept
   \hline
   \textbf{Réserve} (équipement -- épreuve) & L, I, M, S & L, I, M, S & Aucun & L (ses épreuves) & Aucun \\
   \hline
-  \textbf{Produit} (épreuve -- résultat) & L, I, M, S & L, M (validation) & L (validés) & L, I, M (provisoires de ses épreuves) & L (validés) \\
-  \hline
-  \textbf{Obtient} (résultat -- équipe) & L, I, M, S & L, M (validation) & L (validés) & L, I, M (provisoires de ses épreuves) & L (validés) \\
+  \textbf{Résultat} (équipe -- épreuve) & L, I, M, S & L, M (validation) & L (validés) & L, I, M (provisoires de ses épreuves) & L (validés) \\
   \hline
 \end{longtable}
 }
@@ -131,7 +133,7 @@ Pour appliquer ces droits, certaines données sont exposées uniquement à trave
     \hline
     \texttt{\scriptsize V\_ATHLETE\_PUBLIC} & Nom, prénom, sexe, nationalité et délégation de l'athlète, sans date de naissance, poids ni taille. & Public, officiels \\
     \hline
-    \texttt{\scriptsize V\_CALENDRIER} & Discipline, épreuve (phase), date, horaire et lieu. & Tous \\
+    \texttt{\scriptsize V\_CALENDRIER} & Sport, discipline, épreuve (phase), date, horaire et lieu. & Tous \\
     \hline
     \texttt{\scriptsize V\_RESULTATS\_VALIDES} & Résultats validés uniquement, les résultats provisoires restant cachés. & Public, délégations \\
     \hline

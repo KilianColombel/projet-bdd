@@ -6,9 +6,9 @@ Pour la suite, les noms en \emph{italique} représentent des associations de la 
 
 Voici les choix retenus pour la modélisation de notre base de données relationnelle en rapport avec la définition du besoin formulé précédemment :
 
-Notre modélisation se limite aux jeux de Paris 2024. Le sport est indiqué dans la discipline : ses épreuves sont donc accessibles en passant par les disciplines qui lui correspondent.
+Notre modélisation se limite aux jeux de Paris 2024. Chaque discipline relève d'un seul sport. Celui-ci \emph{Regroupe} des disciplines, éventuellement renseignées plus tard.
 
-Chaque équipe \emph{Concourt} dans une seule discipline. On peut modifier ses membres avant sa première inscription, ensuite, aucun athlète ne peut y être ajouté ni en être retiré pendant les jeux, même si toutes ses inscriptions sont annulées.
+Chaque équipe \emph{Concourt} dans une seule discipline pratiquée par tous ses membres. \emph{Pratique} peut être renseignée avant toute équipe. La composition est modifiable avant la première inscription, puis figée pendant les Jeux, même si toutes les inscriptions sont annulées.
 
 \emph{Participe} conserve une inscription unique par couple (équipe, épreuve), créée active, avec sa date initiale (date et heure) et son statut (active ou annulée). Avant le début de l'épreuve, on peut l'annuler puis la réactiver sans changer sa date initiale. Une erreur portant sur l'équipe ou l'épreuve se corrige en annulant le mauvais couple puis en créant ou en réactivant le couple correct. Un report de date ou d'horaire conserve les inscriptions à la même épreuve. Toutes les inscriptions, même annulées suite à une erreur, restent conservées et ne permettent pas de modifier la composition de l'équipe. Un abandon pendant l'épreuve est indiqué dans le résultat et conserve une inscription active. Seules les inscriptions actives désignent les participants et autorisent un résultat, unique par équipe et par épreuve.
 
@@ -18,7 +18,7 @@ Un entraîneur peut être enregistré avant ses spécialités et ses équipes. L
 
 Une discipline peut être enregistrée avant ses épreuves. Chaque épreuve a une discipline et un lieu connus dès sa création, un sexe concerné et l'indication d'une attribution de médaille.
 
-L'unité de performance est portée par la discipline : seconde pour les temps, mètre pour les distances et point pour les scores. Le résultat conserve la valeur numérique ; son unité se retrouve par la discipline de l'épreuve. Il porte séparément l'\textbf{issue sportive} et le \textbf{statut de validation}.
+L'association \emph{Résultat} relie une équipe à une épreuve, sans identifiant propre. Elle porte la performance, le classement, l'\textbf{issue sportive}, le \textbf{statut de validation} et l'éventuelle médaille. L'unité de performance est portée par la discipline : seconde pour les temps, mètre pour les distances et point pour les scores.
 
 Une compétition comme le triathlon est représentée par une seule épreuve, avec un résultat global. Son lieu désigne l'ensemble du site ou du parcours. Nous ne détaillons pas ses étapes, leurs lieux, leurs horaires ni leurs résultats intermédiaires. Les équipements nécessaires à toutes les étapes sont renseignés directement pour la discipline, sans être déduits automatiquement des activités qui la composent.
 
@@ -29,11 +29,6 @@ Une compétition comme le triathlon est représentée par une seule épreuve, av
 \vspace{0.8em}
 \noindent\makebox[\textwidth][c]{%
     \resizebox{!}{0.9\textheight}{%
-        \rotatebox{90}{%
-            \begin{minipage}{25cm}
-                \hfill
-                \input{figures/schema_ea}
-            \end{minipage}%
-        }%
+        \rotatebox{90}{\input{figures/schema_ea}}%
     }%
 }

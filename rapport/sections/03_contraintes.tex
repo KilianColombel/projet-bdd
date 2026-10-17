@@ -42,6 +42,8 @@ Ainsi, les contraintes suivantes doivent être respectées aussi bien lors du re
 
   \item \label{ctr:discipline} Toute inscription, active ou annulée, doit concerner une épreuve de la discipline dans laquelle l'équipe \emph{Concourt}.
 
+  \item \label{ctr:pratique} Tout athlète membre d'une équipe doit être lié par \emph{Pratique} à la discipline dans laquelle cette équipe \emph{Concourt}. Ce lien ne peut donc pas être supprimé tant que l'athlète appartient à une équipe de cette discipline.
+
   \item \label{ctr:specialites} Chaque entraîneur doit être \emph{Spécialisé} dans la discipline des équipes qu'il \emph{Encadre}.
 
   \item \label{ctr:officiel} Un officiel \emph{Supervise} uniquement des épreuves de la discipline à laquelle il est \emph{Affecté}.
@@ -52,7 +54,7 @@ Ainsi, les contraintes suivantes doivent être respectées aussi bien lors du re
 
   \item \label{ctr:mixite} Dans une épreuve "mixte", chaque équipe collective ayant une inscription active compte au moins un athlète de chaque sexe.
 
-  \item \label{ctr:lieu} Un lieu ne peut pas accueillir des épreuves de sports différents au même moment. Plusieurs épreuves de disciplines d'un même sport peuvent s'y dérouler simultanément, à condition qu'elles ne réservent pas un même équipement sur ce lieu au même moment, conformément à la contrainte \ref{ctr:disponibilite}.
+  \item \label{ctr:lieu} Un lieu ne peut pas accueillir des épreuves de sports différents au même moment. Le sport de chaque épreuve est celui qui \emph{Regroupe} sa discipline. Plusieurs épreuves de disciplines d'un même sport peuvent s'y dérouler simultanément, à condition qu'elles ne réservent pas un même équipement sur ce lieu au même moment, conformément à la contrainte \ref{ctr:disponibilite}.
 
   \item \label{ctr:personnes} Un athlète, un entraîneur ou un officiel ne peut pas être engagé dans deux épreuves distinctes dont les horaires se chevauchent. L'engagement dépend des inscriptions actives pour les athlètes et les entraîneurs, et des épreuves supervisées pour les officiels. Un entraîneur peut toutefois encadrer plusieurs équipes dans une même épreuve.
 

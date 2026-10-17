@@ -1,1 +1,147 @@
 \subsection{Droits et Vues}
+
+\subsubsection{Droits sur les concepts}
+
+Les droits d'accès aux données dépendent du profil de l'utilisateur. Le tableau suivant précise, pour chaque concept, les opérations autorisées à chaque profil.
+
+\begin{table}[H]
+  \centering
+  \footnotesize
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabular}{|>{\raggedright\arraybackslash}p{1.9cm}|
+                  >{\centering\arraybackslash}p{2.0cm}|
+                  >{\centering\arraybackslash}p{2.0cm}|
+                  >{\centering\arraybackslash}p{2.9cm}|
+                  >{\centering\arraybackslash}p{2.9cm}|
+                  >{\centering\arraybackslash}p{1.8cm}|}
+    \hline
+    \rowcolor{gray!25}
+    \textbf{Concept} & \textbf{Administrateur} & \textbf{Organisateur} & \textbf{Responsable de délégation} & \textbf{Officiel} & \textbf{Public} \\
+    \hline
+    \textbf{Délégation} & L, I, M, S & L & L (la sienne) & L & L \\
+    \hline
+    \textbf{Athlète} & L, I, M, S & L & L, I, M, S (sa délégation) & L (partiel) & L (partiel) \\
+    \hline
+    \textbf{Équipe} & L, I, M, S & L & L, I, M, S (sa délégation) & L & L \\
+    \hline
+    \textbf{Entraîneur} & L, I, M, S & L & L, I, M, S (sa délégation) & Aucun & L (partiel) \\
+    \hline
+    \textbf{Discipline} & L, I, M, S & L, I, M, S & L & L & L \\
+    \hline
+    \textbf{Épreuve} & L, I, M, S & L, I, M, S & L & L & L \\
+    \hline
+    \textbf{Lieu} & L, I, M, S & L, I, M, S & L & L & L \\
+    \hline
+    \textbf{Officiel} & L, I, M, S & L, I, M, S & Aucun & L (ses données) & Aucun \\
+    \hline
+    \textbf{Équipement} & L, I, M, S & L, I, M, S & Aucun & L & Aucun \\
+    \hline
+    \textbf{Résultat} & L, I, M, S & L, M (validation) & L (validés) & L, I, M (provisoires de ses épreuves) & L (validés) \\
+    \hline
+  \end{tabular}
+  \caption{Droits par concept}
+  \label{tab:droits-concepts}
+  \vspace{0.5em}
+  {\footnotesize\textit{Légende : L = lecture, I = insertion, M = modification, S = suppression. (partiel) = accès uniquement via une vue qui masque les données sensibles (poids, taille, date de naissance).}}
+\end{table}
+
+Ces droits suivent le principe du moindre privilège : chaque profil n'accède qu'aux données utiles à son rôle. L'administrateur dispose de tous les droits, tandis que l'organisateur gère le cadre des Jeux (disciplines, épreuves, lieux, officiels, équipements) mais ne peut que consulter les participants. Le responsable de délégation ne gère que les athlètes, équipes et entraîneurs de sa propre délégation. Les données sensibles des athlètes (poids, taille, date de naissance) ne sont accessibles au public et aux officiels qu'au travers d'une vue qui les masque, et les résultats ne deviennent publics qu'une fois validés par l'organisateur.
+
+\subsubsection{Droits sur les associations}
+
+Les droits sur les associations reprennent la même logique que pour les concepts : ils dépendent du profil et, pour les responsables de délégation et les officiels, ils se limitent aux données qui les concernent (leur délégation ou leurs épreuves).
+\newpage
+{\footnotesize
+\renewcommand{\arraystretch}{1.3}
+\begin{longtable}{|>{\raggedright\arraybackslash}p{3.1cm}|
+                  >{\centering\arraybackslash}p{1.7cm}|
+                  >{\centering\arraybackslash}p{1.9cm}|
+                  >{\centering\arraybackslash}p{2.7cm}|
+                  >{\centering\arraybackslash}p{2.6cm}|
+                  >{\centering\arraybackslash}p{1.6cm}|}
+  \caption{Droits par association}
+  \label{tab:droits-associations} \\
+  \hline
+  \rowcolor{gray!25}
+  \textbf{Association} & \textbf{Admin.} & \textbf{Organisateur} & \textbf{Responsable de délégation} & \textbf{Officiel} & \textbf{Public} \\
+  \hline
+  \endfirsthead
+  \hline
+  \rowcolor{gray!25}
+  \textbf{Association} & \textbf{Admin.} & \textbf{Organisateur} & \textbf{Responsable de délégation} & \textbf{Officiel} & \textbf{Public} \\
+  \hline
+  \endhead
+  \hline
+  \endfoot
+  \textbf{Représente} (délégation -- athlète) & L, I, M, S & L & L, I, M, S (sa délégation) & Aucun & Aucun \\
+  \hline
+  \textbf{Délègue} (délégation -- équipe) & L, I, M, S & L & L, I, M, S (sa délégation) & Aucun & Aucun \\
+  \hline
+  \textbf{Appartient} (entraîneur -- délégation) & L, I, M, S & L & L, I, M, S (sa délégation) & Aucun & Aucun \\
+  \hline
+  \textbf{Composé} (athlète -- équipe) & L, I, M, S & L & L, I, M, S (sa délégation) & Aucun & Aucun \\
+  \hline
+  \textbf{Encadre} (entraîneur -- équipe) & L, I, M, S & L & L, I, M, S (sa délégation) & Aucun & Aucun \\
+  \hline
+  \textbf{Spécialisé} (entraîneur -- discipline) & L, I, M, S & L & L, I, M, S (sa délégation) & Aucun & Aucun \\
+  \hline
+  \textbf{Concourt} (équipe -- discipline) & L, I, M, S & L & L, I, M, S (sa délégation) & L & L \\
+  \hline
+  \textbf{Participe} (équipe -- épreuve) & L, I, M, S & L & L, I, S (sa délégation) & L (ses épreuves) & Aucun \\
+  \hline
+  \textbf{Rattaché} (officiel -- délégation) & L, I, M, S & L, I, M, S & Aucun & L (le sien) & Aucun \\
+  \hline
+  \textbf{Affecté} (officiel -- discipline) & L, I, M, S & L, I, M, S & Aucun & L (le sien) & Aucun \\
+  \hline
+  \textbf{Supervise} (officiel -- épreuve) & L, I, M, S & L, I, M, S & Aucun & L (les siennes) & Aucun \\
+  \hline
+  \textbf{Comporte} (épreuve -- discipline) & L, I, M, S & L, I, M, S & L & L & L \\
+  \hline
+  \textbf{Accueille} (lieu -- épreuve) & L, I, M, S & L, I, M, S & L & L & L \\
+  \hline
+  \textbf{Nécessite} (équipement -- discipline) & L, I, M, S & L, I, M, S & Aucun & L & Aucun \\
+  \hline
+  \textbf{Stocke} (équipement -- lieu) & L, I, M, S & L, I, M, S & Aucun & L & Aucun \\
+  \hline
+  \textbf{Réserve} (équipement -- épreuve) & L, I, M, S & L, I, M, S & Aucun & L (ses épreuves) & Aucun \\
+  \hline
+  \textbf{Produit} (épreuve -- résultat) & L, I, M, S & L, M (validation) & L (validés) & L, I, M (provisoires de ses épreuves) & L (validés) \\
+  \hline
+  \textbf{Obtient} (résultat -- équipe) & L, I, M, S & L, M (validation) & L (validés) & L, I, M (provisoires de ses épreuves) & L (validés) \\
+  \hline
+\end{longtable}
+}
+
+{\footnotesize\textit{Légende : L = lecture, I = insertion, M = modification, S = suppression. (sa délégation) = uniquement les lignes liées à sa propre délégation. (ses épreuves) / (les siennes) = uniquement les épreuves auxquelles l'officiel est affecté.}}
+
+\subsubsection{Vues}
+
+Pour appliquer ces droits, certaines données sont exposées uniquement à travers des vues, qui masquent les informations sensibles ou limitent les lignes visibles selon le profil. Par exemple, le public ne voit pas le poids exact, la taille ni la date de naissance des athlètes (la catégorie de poids reste visible).
+
+\begin{table}[H]
+  \centering
+  \footnotesize
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabular}{|>{\raggedright\arraybackslash}p{4.6cm}|
+                  >{\raggedright\arraybackslash}p{7.0cm}|
+                  >{\centering\arraybackslash}p{2.8cm}|}
+    \hline
+    \rowcolor{gray!25}
+    \textbf{Vue} & \textbf{Contenu} & \textbf{Profils concernés} \\
+    \hline
+    \texttt{\scriptsize V\_ATHLETE\_PUBLIC} & Nom, prénom, sexe, nationalité et délégation de l'athlète, sans date de naissance, poids ni taille. & Public, officiels \\
+    \hline
+    \texttt{\scriptsize V\_CALENDRIER} & Discipline, épreuve (phase), date, horaire et lieu. & Tous \\
+    \hline
+    \texttt{\scriptsize V\_RESULTATS\_VALIDES} & Résultats validés uniquement, les résultats provisoires restant cachés. & Public, délégations \\
+    \hline
+    \texttt{\scriptsize V\_TABLEAU\_MEDAILLES} & Nombre de médailles par délégation. & Tous \\
+    \hline
+    \texttt{\scriptsize V\_MA\_DELEGATION} & Athlètes, équipes et entraîneurs de la délégation de l'utilisateur connecté. & Responsable de délégation \\
+    \hline
+    \texttt{\scriptsize V\_MES\_AFFECTATIONS} & Épreuves affectées à l'officiel connecté. & Officiel \\
+    \hline
+  \end{tabular}
+  \caption{Vues de la base de données}
+  \label{tab:vues}
+\end{table}

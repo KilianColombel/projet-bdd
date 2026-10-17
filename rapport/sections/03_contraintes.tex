@@ -2,121 +2,60 @@
 
 \subsubsection{Contraintes complexes}
 
-Nous avons cherché à modéliser les contraintes qui régissent l'établissement de cette base de données relationnelle afin d'assurer de la cohérence sur le long terme des valeurs entrées et consultées.
+Ces règles complètent le schéma et s'appliquent à chaque création, modification ou suppression, y compris par l'administrateur. La publication et le décompte des médailles sont décrits dans les droits et les vues.
 
-Ainsi, les contraintes suivantes doivent être respectées aussi bien lors du renseignement des informations que lors de leur modification ou de leur suppression.
+\begin{contraintes}[itemsep=0.5\baselineskip]
 
-\begin{contraintes}
+  \item \label{ctr:discipline}  Toute inscription, active ou annulée, relie une équipe à une épreuve de sa discipline. Chaque membre de l'équipe pratique cette discipline et chaque entraîneur qui l'encadre y est spécialisé dans celle-ci.
 
-  \item \label{ctr:inscription} Une équipe doit avoir une inscription active à une épreuve par \emph{Participe} pour y obtenir un résultat.
+  \item \label{ctr:effectif-equipe}  Toute équipe ayant une inscription active possède au moins un entraîneur et un effectif compris entre les limites de sa discipline.
 
-  \item \label{ctr:unicite-resultat} Une équipe ne peut avoir qu'un seul résultat pour une même épreuve.
+  \item \label{ctr:sexe-participants}  Dans une épreuve hommes ou femmes, les membres de chaque équipe ayant une inscription active ont le sexe correspondant. Dans une épreuve mixte collective, chaque équipe participante compte au moins un homme et une femme.
 
-  \item \label{ctr:inscriptions-definitives} À partir du début de l'épreuve, aucune inscription ne peut être créée, annulée ou réactivée.
+  \item \label{ctr:poids-participants}  Si la discipline impose une borne de poids, chaque athlète d'une équipe ayant une inscription active possède un poids renseigné et respecte les bornes de cette discipline.
 
-  \item \label{ctr:retrait} Avant le début de l'épreuve, une inscription peut être annulée uniquement si aucun résultat ne lui est associé (elle reste donc enregistrée avec le statut "annulée").
+  \item \label{ctr:personnes}  Un athlète ne peut appartenir à deux équipes ayant une inscription active à la même épreuve. 
+  
+  \item \label{ctr:uniq-participants} Un athlète ou un entraîneur ne peut être engagé, via des inscriptions actives, dans deux épreuves distinctes dont les horaires se chevauchent
 
-  \item \label{ctr:athlete} Un athlète ne peut pas appartenir à deux équipes ayant chacune une inscription active à la même épreuve.
+  \item \label{ctr:composition} Dès la première inscription d'une équipe, la liste de ses athlètes et les limites d'effectif de sa discipline sont figées pendant les JO, même si les inscriptions sont ensuite annulées.
 
-  \item \label{ctr:rang-maximal} Le rang ne peut pas dépasser le nombre d'inscriptions actives à l'épreuve, y compris celles des équipes disqualifiées ou ayant abandonné.
+  \item \label{ctr:historique-inscriptions}Pendant les JO, toute inscription et les deux entités associées sont conservées. Sa date initiale ainsi que son couple équipe-épreuve sont immuables. Seul son statut peut changer. Dès le début de l'épreuve, aucune création, annulation ou réactivation n'est permise.
 
-  \item \label{ctr:epreuve-medaillee} Un résultat ne peut indiquer une médaille que si l'épreuve concernée attribue une médaille.
+  \item \label{ctr:annulation-epreuve}  Le créneau d'une épreuve est fixé à la création. Le changer exige d'annuler l'épreuve avant son début et d'en créer une nouvelle, sans transfert automatique des inscriptions. Toute annulation est définitive, autorisée uniquement avant le début de l'épreuve, et annule les inscriptions actives. L'épreuve reste conservée, mais n'admet alors plus de nouvelle inscription, de réactivation ni de résultat.
 
-  \item \label{ctr:validation-resultat} Un résultat est créé avec le statut de validation "provisoire". Un officiel peut saisir et modifier uniquement les résultats provisoires des épreuves qu'il supervise ; il ne peut pas les valider. Un organisateur peut valider un résultat, quelle que soit son issue sportive, ou le remettre au statut provisoire pour permettre une correction. L'administrateur peut également effectuer ces opérations.
+  \item \label{ctr:validation-resultat}  Un résultat exige une inscription active à une épreuve non annulée. Il est saisi après la fin de l'épreuve, avec le statut initial provisoire.
 
-  \item \label{ctr:correction-resultat} La performance, le classement, l'issue sportive et la médaille d'un résultat validé ne peuvent pas être modifiés tant qu'il conserve ce statut. Une correction nécessite d'abord son retour au statut provisoire, puis une nouvelle validation. Cette règle s'applique également à l'administrateur.
+  \item \label{ctr:correction-resultat}  Tant qu'un résultat est validé, son classement, son issue et sa médaille sont immuables, et sa suppression est interdite. Toute correction ou suppression exige un retour préalable au statut provisoire.
 
-  \item \label{ctr:publication-resultat} Seuls les résultats dont le statut de validation vaut "validé" sont publiés au public et aux délégations, y compris les abandons et les disqualifications. Le tableau des médailles compte uniquement les résultats validés d'issue "terminé" comportant une médaille ; une médaille d'équipe est comptée une seule fois. Le retour d'un résultat au statut provisoire le retire des résultats publiés et, le cas échéant, du décompte des médailles.
-
-  \item \label{ctr:delegation} Les athlètes d'une même équipe doivent appartenir à la même délégation que cette équipe.
-
-  \item \label{ctr:delegation-entraineurs} Les entraîneurs d'une équipe doivent appartenir à la même délégation que cette équipe. La nationalité d'un entraîneur peut toutefois être différente du pays de sa délégation.
-
-  \item \label{ctr:encadrement} Toute équipe ayant une inscription active à une épreuve doit avoir au moins un entraîneur.
-
-  \item \label{ctr:effectif-equipe} Toute équipe ayant une inscription active à une épreuve doit avoir un nombre d'athlètes, comptés à partir de \emph{Composé}, compris entre le minimum et le maximum de sa discipline.
-
-  \item \label{ctr:composition} Dès la première inscription d'une équipe, aucun athlète ne peut y être ajouté ni en être retiré, même si toutes ses inscriptions sont ensuite annulées.
-
-  \item \label{ctr:limites} Les limites d'effectif d'une discipline ne peuvent plus être modifiées dès qu'une équipe de cette discipline a été inscrite à une épreuve, même si cette inscription est ensuite annulée.
-
-  \item \label{ctr:discipline} Toute inscription, active ou annulée, doit concerner une épreuve de la discipline dans laquelle l'équipe \emph{Concourt}.
-
-  \item \label{ctr:pratique} Tout athlète membre d'une équipe doit être lié par \emph{Pratique} à la discipline dans laquelle cette équipe \emph{Concourt}. Ce lien ne peut donc pas être supprimé tant que l'athlète appartient à une équipe de cette discipline.
-
-  \item \label{ctr:specialites} Chaque entraîneur doit être \emph{Spécialisé} dans la discipline des équipes qu'il \emph{Encadre}.
-
-  \item \label{ctr:officiel} Un officiel \emph{Supervise} uniquement des épreuves de la discipline à laquelle il est \emph{Affecté}.
-
-  \item \label{ctr:impartialite} Un officiel ne peut pas superviser une épreuve où une équipe ayant une inscription active comprend un athlète de sa nationalité. Cette règle s'applique aussi aux réactivations d'inscriptions et aux changements concernant les personnes impliquées.
-
-  \item \label{ctr:sexe-participants} Dans une épreuve "hommes" ou "femmes", tous les athlètes des équipes ayant une inscription active doivent avoir le sexe correspondant.
-
-  \item \label{ctr:mixite} Dans une épreuve "mixte", chaque équipe collective ayant une inscription active compte au moins un athlète de chaque sexe.
-
-  \item \label{ctr:lieu} Un lieu ne peut pas accueillir des épreuves de sports différents au même moment. Le sport de chaque épreuve est celui qui \emph{Regroupe} sa discipline. Plusieurs épreuves de disciplines d'un même sport peuvent s'y dérouler simultanément, à condition qu'elles ne réservent pas un même équipement sur ce lieu au même moment, conformément à la contrainte \ref{ctr:disponibilite}.
-
-  \item \label{ctr:personnes} Un athlète, un entraîneur ou un officiel ne peut pas être engagé dans deux épreuves distinctes dont les horaires se chevauchent. L'engagement dépend des inscriptions actives pour les athlètes et les entraîneurs, et des épreuves supervisées pour les officiels. Un entraîneur peut toutefois encadrer plusieurs équipes dans une même épreuve.
-
-  \item \label{ctr:disponibilite} Sur un même lieu, un équipement ne peut faire l'objet de réservations actives pour deux épreuves dont les horaires se chevauchent. Pour simplifier l'organisation, cette règle s'applique même si plusieurs exemplaires de cet équipement sont présents.
-
-  \item \label{ctr:stock-reservation} La quantité réservée pour une épreuve ne peut pas dépasser la quantité indiquée par \emph{Stocke} sur son lieu.
-
-  \item \label{ctr:equipements-reservables} On ne peut réserver que les équipements nécessaires à la discipline de l'épreuve.
-
-  \item \label{ctr:historique-inscriptions} Chaque couple équipe--épreuve possède au plus une inscription, créée active. Sa date initiale ne change jamais. Pendant les jeux, les inscriptions actives ou annulées, ainsi que les équipes et les épreuves associées, restent enregistrées pour conserver la trace du premier engagement de chaque équipe.
+  \item \label{ctr:rang-maximal}  Le rang renseigné est compris entre un et le nombre d'inscriptions actives à l'épreuve. Une médaille exige que l'épreuve puisse en attribuer une. Elle est saisie à la main selon les règles de compétition, sans déduction automatique du rang.
 
 \end{contraintes}
 
+\clearpage
 \subsubsection{Conditions sur les valeurs}
 
-Les informations renseignées doivent également respecter les conditions simples suivantes :
-
-\begin{itemize}
-  \item Le statut d'une inscription est obligatoire et vaut active ou annulée.
-  \item Le statut d'une réservation est obligatoire et vaut active ou annulée. Une réservation annulée ne couvre aucun besoin et ne bloque aucun équipement.
-  \item L'issue sportive d'un résultat est obligatoire et vaut terminé, disqualifié ou abandon.
-  \item Le statut de validation d'un résultat est obligatoire et vaut provisoire ou validé ; sa valeur initiale est provisoire.
-  \item Un résultat d'issue "terminé" doit comporter une performance et un classement, quel que soit son statut de validation. Ces valeurs peuvent manquer pour les issues "disqualifié" et "abandon", même après validation.
-  \item La performance, lorsqu'elle est renseignée, est une valeur numérique, éventuellement décimale, exprimée dans l'unité de la discipline. Une durée est strictement positive et une distance est supérieure ou égale à zéro.
-  \item La médaille est facultative et vaut or, argent ou bronze lorsqu'elle est renseignée. Elle ne peut être indiquée que pour un résultat d'issue "terminé". Elle peut être proposée avant validation, mais n'est comptabilisée qu'après validation. Un changement d'issue vers "disqualifié" ou "abandon" impose de retirer toute médaille.
-  \item Le rang, lorsqu'il est renseigné, est un nombre entier supérieur ou égal à 1.
-  \item L'heure de fin d'une épreuve est postérieure à son heure de début.
-  \item Le sexe concerné par une épreuve est choisi parmi les valeurs suivantes : hommes, femmes ou mixte.
-  \item Le sexe d'un athlète est obligatoire et vaut homme ou femme, en cohérence avec les catégories des épreuves retenues dans ce projet.
-  \item Les quantités nécessaires et réservées sont des nombres entiers strictement positifs.
-  \item Les quantités stockées sont des nombres entiers supérieurs ou égaux à zéro. Leur somme donne la quantité totale disponible d'un équipement.
-  \item La capacité d'accueil d'un lieu est un nombre entier supérieur ou égal à zéro. La taille et le poids d'un athlète, lorsqu'ils sont renseignés, sont strictement positifs ; ils sont exprimés respectivement en centimètres et en kilogrammes.
-  \item La catégorie d'une discipline est obligatoire et vaut individuelle ou équipe.
-  \item Le type de mesure et l'unité de performance d'une discipline sont obligatoires. Le type vaut temps, distance ou points ; l'unité correspondante est respectivement seconde, mètre ou point.
-  \item Les effectifs minimal et maximal d'une discipline sont des nombres entiers ; le minimum est supérieur ou égal à 1 et le maximum est supérieur ou égal au minimum. Dans le cas individuel, ils valent tous deux 1.
+\begin{itemize}[itemsep=0.5\baselineskip]
+  \item Épreuve annulée \(\in\{\mbox{oui},\mbox{non}\}\) ; initialement non.
+  \item Statut d'inscription \(\in\{\mbox{active},\mbox{annulée}\}\) ; initialement active.
+  \item Issue du résultat \(\in\{\mbox{terminé},\mbox{éliminé},\mbox{disqualifié},\mbox{abandon}\}\).
+  \item Statut du résultat \(\in\{\mbox{provisoire},\mbox{validé}\}\) ; initialement provisoire.
+  \item Rang \(\in \mathbb{N}^{*}\), facultatif, y compris après validation.
+  \item Médaille \(\in\{\mbox{or},\mbox{argent},\mbox{bronze}\}\), facultative.\newline
+  Médaille renseignée \(\Longrightarrow\) issue \(\in\{\mbox{terminé},\mbox{éliminé}\}\).
+  \item Horaires d'épreuve : même date et \(\mathrm{debut}<\mathrm{fin}\).\newline
+  Créneau \(=[\mathrm{debut},\mathrm{fin}[\), date comprise dans la comparaison.
+  \item Sexe : athlète \(\in\{\mbox{homme},\mbox{femme}\}\) et épreuve \(\in\{\mbox{hommes},\mbox{femmes},\mbox{mixte}\}\).
+  \item Capacité du lieu \(\in \mathbb{N}\) (nombre de spectateurs).
+  \item Taille et poids : taille \(>0\) en cm et poids \(>0\) en kg, si renseignés.
+  \item Bornes de poids : facultatives, \(P_{\min}\geq 0\), \(P_{\max}>0\), si renseignées et \(P_{\min}<P_{\max}\) si les deux existent.
+  \item Format de participation \(\in\{\mbox{individuel},\mbox{équipe}\}\).
+  \item Limites d'effectif : \(N_{\min},N_{\max}\in \mathbb{N}^{*}\) et \(N_{\min}\leq N_{\max}\).\newline
+  Format individuel \(\Longrightarrow N_{\min}=N_{\max}=1\).
 \end{itemize}
 
 % \subsubsection{Suivi de la préparation des épreuves}
 
-% La préparation d'une épreuve est évaluée à partir des informations déjà renseignées. Elle est considérée comme prête si elle possède au moins une inscription active et au moins un officiel pour la superviser et si, pour chaque équipement nécessaire à sa discipline, une réservation active couvre la quantité requise sur son lieu. Les inscriptions et les réservations restent soumises aux contraintes précédentes.
+% Une épreuve non annulée est considérée comme prête si elle possède au moins une inscription active. Toute inscription active respecte les contraintes d'effectif, d'encadrement, de discipline, de sexe, de poids et de disponibilité. L'état de préparation est calculé à partir des inscriptions et n'est pas conservé comme un attribut supplémentaire.
 
-% Une vue de suivi présentera les épreuves dont la préparation est incomplète et indiquera les éléments manquants : participants, officiels ou équipements en quantité suffisante. Les organisateurs la consulteront pour compléter la préparation avant le début des épreuves. L'état de préparation sera calculé à partir des données ; aucun contrôle automatique déclenché par le seul passage de l'heure de début n'est prévu.
-
-% \subsubsection{Cadre d'utilisation}
-
-% Les contraintes précédentes apportent une complexité supplémentaire lors de l'insertion des valeurs. En effet, les unes dépendant des autres, il devient difficile de savoir lesquelles rentrer en premier pour ne pas fâcher l'interpréteur Oracle/SQL. Voici donc l'ordre logique de renseignement des informations que nous avons envisagé mais non obligatoire :
-
-% \begin{enumerate}
-%   % défintion du cadre
-%   \item On renseigne d'abord les délégations, les disciplines et leur sport, les lieux et les équipements présents sur chacun d'eux. Pour chaque discipline, on précise également les limites d'effectif, les besoins en matériel et les spécialités des entraîneurs concernés pour satisfaire aux contraintes lors des insertions suivantes.
-
-%   % constitution des équipes
-%   \item Une équipe peut ensuite être rattachée à une délégation et à une discipline. Ses athlètes et ses entraîneurs peuvent alors être ajoutés progressivement. Lors de la création ou de la réactivation d'une inscription, on vérifie l'effectif, l'encadrement, les délégations et les spécialités de cette équipe. Dès sa toute première inscription, la liste de ses athlètes reste inchangée pendant les JO, même si toutes ses inscriptions sont annulées.
-
-%   % préparation des épreuves
-%   \item On peut ensuite renseigner la discipline, le lieu, la date et les horaires, la phase, le sexe concerné et l'éventuelle attribution de médailles. A partir de là, on peut inscrire les équipes, choisir les officiels et réserver le matériel (sans importance sur l'ordre). Une inscription est créée active, avec sa date et son heure initiales. Si ce couple équipe--épreuve possède déjà une inscription annulée, on la réactive en conservant sa date initiale. Chaque ajout doit cependant respecter les règles de participation, d'impartialité et de disponibilité.
-
-%   % vérification des épreuves
-%   \item Lorsqu'on estime avoir terminé la préparation d'une épreuve, on vérifie la présence d'au moins une équipe avec une inscription active et d'un officiel, ainsi que la disponibilité des besoins en matériel. Cette vérification peut avoir lieu bien avant le début de l'épreuve pour  s'assurer que la préparation est complète (on considère donc qu'une épreuve est prête à partir des informations déjà renseignées, sans avoir besoin de conserver une indication séparée). Si des informations manquent, sa préparation doit être complétée avant son début. Chaque ajout reste soumis aux contraintes précédentes et une modification qui remet en cause ces conditions demande une nouvelle vérification.
-
-%   % concernant les participations et résultats...
-%   \item Les inscriptions sont conservées au fur et à mesure qu'elles sont renseignées, y compris lorsqu'elles sont annulées. Tant que l'épreuve n'a pas commencé, on peut créer, annuler ou réactiver une inscription, à condition de respecter les contraintes précédentes. Annuler une inscription change son statut sans supprimer le lien ni sa date initiale. Cette annulation libère l'équipe de son engagement pour cette épreuve, mais ne permet pas de modifier sa composition. Seules les inscriptions actives comptent dans la liste des participants et la vérification de la préparation. Le fait qu'une épreuve soit considérée comme prête ne signifie donc pas que la liste de ses participants est définitive. À partir de son début, les inscriptions et leurs statuts sont figés. Une équipe qui abandonne conserve son inscription active et son abandon est indiqué dans son résultat. À l'issue de l'épreuve, on renseigne les résultats et les éventuelles médailles. Le tableau des médailles de chaque délégation est ensuite établi à partir des résultats (on ne compte les médailles collectives qu'une seule fois).
-% \end{enumerate}
-
-% Par exemple, une course et un concours de saut peuvent être prévus au même moment dans un stade puisqu'ils relèvent du même sport, si leurs équipements réservés sont différents. En revanche, deux courses utilisant la même piste doivent être placées à des horaires différents. Une course prévue de 10~h à 11~h peut être suivie d'une autre à 11~h : la piste est alors disponible pour la seconde.
+% Une vue de suivi permet à l'organisateur de repérer, parmi les épreuves non annulées qui n'ont pas commencé, celles qui n'ont encore aucune inscription active. Elle présente leur discipline, leur date et leur lieu. L'organisateur la consulte pour compléter la préparation avant le début des épreuves. Toute modification des inscriptions peut changer cet état et demande une nouvelle vérification ; aucun contrôle automatique déclenché par le seul passage de l'heure de début n'est prévu.

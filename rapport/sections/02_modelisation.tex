@@ -4,26 +4,27 @@ Pour la suite, les noms en \emph{italique} représentent des associations de la 
 
 \subsubsection{Choix retenus pour le schéma}
 
-Voici les choix retenus pour la modélisation de notre base de données relationnelle en rapport avec la définition du besoin formulé précédemment :
+\begingroup
+\setlength{\parskip}{0.55\baselineskip}
 
-Notre modélisation se limite aux jeux de Paris 2024. Chaque discipline relève d'un seul sport. Celui-ci \emph{Regroupe} des disciplines, éventuellement renseignées plus tard.
+Le sport est un attribut textuel de Discipline (par exemple "natation"). Le sexe concerné (hommes, femmes ou mixte) est défini au niveau de l'épreuve.
 
-Chaque équipe \emph{Concourt} dans une seule discipline pratiquée par tous ses membres. \emph{Pratique} peut être renseignée avant toute équipe. La composition est modifiable avant la première inscription, puis figée pendant les Jeux, même si toutes les inscriptions sont annulées.
+Chaque équipe \emph{Concourt} dans une seule discipline pratiquée par tous ses membres. Le format distingue individuel (équipe d'un seul athlète, effectifs minimal et maximal égaux à 1) et équipe (plusieurs athlètes dans les limites d'effectif de la discipline). \emph{Pratique} peut être renseignée avant toute équipe. L'association \emph{Composé} décrit les membres de l'équipe. Son effectif est calculé et n'est pas stocké. La composition est modifiable avant la première inscription, puis figée pendant les Jeux, même si toutes les inscriptions sont annulées. La nationalité reste une information propre à chaque athlète ou entraîneur. Elle ne définit ni l'appartenance à une équipe ni un périmètre de droits d'accès.
 
-\emph{Participe} conserve une inscription unique par couple (équipe, épreuve), créée active, avec sa date initiale (date et heure) et son statut (active ou annulée). Avant le début de l'épreuve, on peut l'annuler puis la réactiver sans changer sa date initiale. Une erreur portant sur l'équipe ou l'épreuve se corrige en annulant le mauvais couple puis en créant ou en réactivant le couple correct. Un report de date ou d'horaire conserve les inscriptions à la même épreuve. Toutes les inscriptions, même annulées suite à une erreur, restent conservées et ne permettent pas de modifier la composition de l'équipe. Un abandon pendant l'épreuve est indiqué dans le résultat et conserve une inscription active. Seules les inscriptions actives désignent les participants et autorisent un résultat, unique par équipe et par épreuve.
+\emph{Participe} conserve une inscription unique par couple (équipe, épreuve), créée active, avec sa date initiale (date et heure) et son statut (active ou annulée). Avant le début d'une épreuve non annulée, on peut annuler puis réactiver une inscription sans changer sa date initiale. Une erreur portant sur l'équipe ou l'épreuve se corrige en annulant l'inscription erronée puis en créant ou en réactivant le couple correct. Toutes les inscriptions restent conservées et ne permettent pas de modifier la composition de l'équipe. Un abandon pendant l'épreuve est indiqué dans le résultat et conserve une inscription active.
 
-Un athlète \emph{Représente} une délégation, un entraîneur lui \emph{Appartient} et une délégation \emph{Délègue} ses équipes. Un officiel peut lui être \emph{Rattaché}, mais ce lien est facultatif. Ces noms distincts permettent de différencier les associations du schéma. Une délégation peut être vide, une équipe sans membres ni entraîneurs, et un athlète ou un entraîneur sans équipe.
+Une équipe peut être enregistrée sans membres ni entraîneurs, et un athlète ou un entraîneur sans équipe. Un entraîneur peut être enregistré avant ses spécialités et ses équipes. L'association \emph{Spécialisé} relie les entraîneurs à leurs disciplines. Chaque entraîneur suit tous les membres des équipes qu'il \emph{Encadre}.
 
-Un entraîneur peut être enregistré avant ses spécialités et ses équipes. L'encadrement est défini au niveau de l'équipe : chaque entraîneur suit tous les membres des équipes qu'il \emph{Encadre}. Un officiel est affecté à une seule discipline, mais peut n'avoir encore aucune épreuve à superviser.
+Une discipline peut être enregistrée avant ses équipes et ses épreuves. Chaque épreuve \emph{Comporte} une seule discipline et un lieu l'\emph{Accueille}. Un lieu peut être enregistré avant toute épreuve et accueillir plusieurs épreuves simultanément, sans restriction liée à leur discipline. La disponibilité reste contrôlée pour les athlètes et les entraîneurs. Les liens entre lieux et disciplines se déduisent des épreuves, sans association supplémentaire.
 
-Une discipline peut être enregistrée avant ses épreuves. Chaque épreuve a une discipline et un lieu connus dès sa création, un sexe concerné et l'indication d'une attribution de médaille.
+L'association \emph{Résultat} relie une équipe à une épreuve, sans identifiant propre. Elle porte le classement facultatif, l'issue, le statut et l'éventuelle médaille. Comme \emph{Participe}, elle admet au plus une occurrence par couple équipe-épreuve. Seules les inscriptions actives autorisent un résultat. Le rang concerne cette épreuve et admet les ex aequo. Élimination et médaille sont saisies sans calcul automatique. Les scores et performances ne sont pas conservés. Les médailles sont comptées par équipe à partir des résultats validés, sans multiplier une médaille collective par le nombre de membres.
 
-L'association \emph{Résultat} relie une équipe à une épreuve, sans identifiant propre. Elle porte la performance, le classement, l'\textbf{issue sportive}, le \textbf{statut de validation} et l'éventuelle médaille. L'unité de performance est portée par la discipline : seconde pour les temps, mètre pour les distances et point pour les scores.
+Une compétition comme le triathlon est représentée par une seule épreuve, avec un résultat global. Son lieu désigne l'ensemble du site ou du parcours. Nous ne détaillons pas ses étapes, leurs lieux, leurs horaires ni leurs résultats intermédiaires.
 
-Une compétition comme le triathlon est représentée par une seule épreuve, avec un résultat global. Son lieu désigne l'ensemble du site ou du parcours. Nous ne détaillons pas ses étapes, leurs lieux, leurs horaires ni leurs résultats intermédiaires. Les équipements nécessaires à toutes les étapes sont renseignés directement pour la discipline, sans être déduits automatiquement des activités qui la composent.
+Le schéma comprend six entités et neuf associations. Les cardinalités minimales à zéro permettent une saisie progressive, encadrée par les contraintes. Les profils administrateur, organisateur et public définissent des droits d'utilisation, sans entité utilisateur supplémentaire.
 
-\emph{Stocke} donne les quantités fixes par lieu, sans échange possible entre les sites. Les besoins d'une discipline peuvent être ajoutés ensuite par \emph{Nécessite}. \emph{Réserve} indique la quantité réservée pour une épreuve sachant qu'une réservation active concerne toujours le lieu et le créneau de cette épreuve.
-
+\par
+\endgroup
 \clearpage
 \subsubsection{Schéma entité-association}
 \vspace{0.8em}

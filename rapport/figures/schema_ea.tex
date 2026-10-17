@@ -1,108 +1,84 @@
-% Style d'origine conservé ; ancienne version : schema_ea_precedent.tex.
-% Un seul croisement signalé par un saut. Figure étirée pour la rotation du rapport.
+% Six entités et neuf associations ; au plus un coude par liaison entité-association.
 \begin{tikzpicture}[
-  x=1.6cm,
-  eaent/.style={rectangle split, rectangle split parts=2,
-    rectangle split part align={center,left}, draw=black,
+  x=0.8cm,y=0.8cm,
+  eaent/.style={rectangle split,rectangle split parts=2,
+    rectangle split part align={center,left},draw=black,
     rectangle split part fill={black!8,white},
-    text width=2.65cm, inner xsep=5pt, inner ysep=4pt,
-    font=\fontsize{8}{9.5}\selectfont},
-  eaassoc/.style={diamond,aspect=2.3,draw=black,fill=white,align=center,
-    inner xsep=1.5pt,inner ysep=1.5pt,font=\fontsize{8}{9}\selectfont},
-  ealink/.style={draw=black,line width=0.5pt},
-  eacard/.style={fill=white,inner sep=1.3pt,
-    font=\fontsize{8}{9}\selectfont}
+    text width=3.35cm,inner xsep=5pt,inner ysep=5pt,
+    font=\fontsize{10}{11.5}\selectfont},
+  eaassoc/.style={diamond,aspect=2.2,draw=black,fill=white,align=center,
+    inner xsep=2pt,inner ysep=2pt,font=\fontsize{10}{11}\selectfont},
+  eaattr/.style={ellipse,draw=black,fill=white,align=center,
+    minimum width=2cm,minimum height=0.7cm,
+    inner xsep=5pt,inner ysep=4pt,font=\fontsize{10}{11}\selectfont},
+  ealink/.style={draw=black,line width=0.6pt},
+  eacard/.style={fill=white,inner sep=1.5pt,
+    font=\fontsize{10}{11}\selectfont}
 ]
-% Entités et attributs, inchangés.
-\node[eaent] (del) at (-1,16) {\textbf{DÉLÉGATION}\nodepart{second}
-\underline{Id. délégation}\\Nom du pays};
-\node[eaent] (ath) at (8.5,16) {\textbf{ATHLÈTE}\nodepart{second}
-\underline{Identifiant athlète}\\Nom\\Prénom\\Taille\\Année de naissance\\Sexe\\Poids\\Nationalité};
-\node[eaent,text width=3.1cm] (off) at (21,16) {\textbf{OFFICIEL}\nodepart{second}
-\underline{Identifiant officiel}\\Nom\\Prénom\\Nationalité\\Rôle\\Niveau de qualification};
-\node[eaent] (ent) at (-1,8) {\textbf{ENTRAÎNEUR}\nodepart{second}
-\underline{N\textsuperscript{o} carte pro.}\\Nom\\Prénom\\Date de naissance\\Nationalité};
-\node[eaent] (dis) at (9,8) {\textbf{DISCIPLINE}\nodepart{second}
-\underline{Identifiant discipline}\\Nom\\Catégorie\\Effectif minimal\\Effectif maximal\\Type de mesure\\Unité de performance\\Description};
-\node[eaent] (spo) at (16,8) {\textbf{SPORT}\nodepart{second}
-\underline{Identifiant sport}\\Nom};
-\node[eaent] (equ) at (-1,-3.4) {\textbf{ÉQUIPE}\nodepart{second}
+% Entités et attributs.
+\node[eaent] (ath) at (0,5.5) {\textbf{ATHLÈTE}\nodepart{second}
+\underline{Identifiant athlète}\\Nom\\Prénom\\Taille\\Date de naissance\\Sexe\\Poids\\Nationalité};
+\node[eaent] (dis) at (10,11) {\textbf{DISCIPLINE}\nodepart{second}
+\underline{Identifiant discipline}\\Nom\\Sport\\Format\\Effectif min\\Effectif max\\Poids min\\Poids max\\Description};
+\node[eaent] (equ) at (10,0) {\textbf{ÉQUIPE}\nodepart{second}
 \underline{Identifiant équipe}\\Effectif actuel (calculé)};
-\node[eaent] (mat) at (9.9375,0) {\textbf{ÉQUIPEMENT}\nodepart{second}
-\underline{Id. équipement}\\Nom\\Type\\Description\\Quantité disponible (calculée)};
-\node[eaent] (lie) at (16,4) {\textbf{LIEU}\nodepart{second}
+\node[eaent] (ent) at (20,5.5) {\textbf{ENTRAÎNEUR}\nodepart{second}
+\underline{N\textsuperscript{o} carte pro.}\\Nom\\Prénom\\Date de naissance\\Nationalité};
+\node[eaent] (epr) at (32,0) {\textbf{ÉPREUVE}\nodepart{second}
+\underline{Identifiant épreuve}\\Date\\Heure de début\\Heure de fin\\Phase\\Sexe concerné\\Attribue une médaille\\Annulée};
+\node[eaent] (lie) at (32,11) {\textbf{LIEU}\nodepart{second}
 \underline{Identifiant lieu}\\Nom\\Ville\\Capacité d'accueil\\Type d'installation\\Adresse};
-\node[eaent,text width=3.1cm] (epr) at (21,-3.4) {\textbf{ÉPREUVE}\nodepart{second}
-\underline{Identifiant épreuve}\\Date\\Heure de début\\Heure de fin\\Phase de compétition\\Sexe concerné\\Attribue une médaille};
 
-% Associations, représentées par les losanges d'origine.
-\node[eaassoc] (rath) at (3.3,16) {\emph{Représente}};
-\node[eaassoc] (rent) at (-1,12) {\emph{Appartient}};
-\node[eaassoc] (req) at (-4.4,8) {\emph{Délègue}};
-\node[eaassoc] (roff) at (14,19.5) {\emph{Rattaché}};
-\node[eaassoc] (comp) at (3.3,14.8) {\emph{Composé}};
-\node[eaassoc] (enc) at (-1,2) {\emph{Encadre}};
-\node[eaassoc] (spe) at (5.3,8) {\emph{Spécialisé}};
-\node[eaassoc] (pra) at (8.5,12) {\emph{Pratique}};
-\node[eaassoc] (eng) at (8.2,1.6) {\emph{Concourt}};
-\node[eaassoc] (aff) at (15,12.7) {\emph{Affecté}};
-\node[eaassoc] (reg) at (12.5,8) {\emph{Regroupe}};
-\node[eaassoc] (cont) at (18.5,6.8) {\emph{Comporte}};
-\node[eaassoc] (arb) at (24.7,8) {\emph{Supervise}};
-\node[eaassoc] (acc) at (19.3,4) {\emph{Accueille}};
-\node[eaassoc,aspect=1.5] (nec) at (9.5,3.7) {\emph{Nécessite}\\quantité};
-\node[eaassoc,aspect=1.5] (sto) at (13.3,4) {\emph{Stocke}\\quantité};
-\node[eaassoc,aspect=1.6] (resv) at (16.3,0) {\emph{Réserve}\\quantité\\statut};
-\node[eaassoc,aspect=1.6] (par) at (11,-4) {\emph{Participe}\\date initiale\\statut};
-\node[eaassoc,aspect=2.1] (res) at (12,-8.7) {\emph{Résultat}\\Performance\\Classement\\Issue sportive\\Statut de validation\\Médaille};
+% Associations.
+\node[eaassoc] (pra) at (3.5,11) {\emph{Pratique}};
+\node[eaassoc] (comp) at (3.5,0) {\emph{Composé}};
+\node[eaassoc] (eng) at (10,5.5) {\emph{Concourt}};
+\node[eaassoc] (spe) at (17,11) {\emph{Spécialisé}};
+\node[eaassoc] (enc) at (17,0) {\emph{Encadre}};
+\node[eaassoc] (cont) at (25.5,15) {\emph{Comporte}};
+\node[eaassoc] (acc) at (32,5.5) {\emph{Accueille}};
+\node[eaassoc] (par) at (22,-3.5) {\emph{Participe}};
+\node[eaassoc] (res) at (22,-7.1) {\emph{Résultat}};
 
-% Délégation.
-\draw[ealink] (del.east) -- node[eacard,above,pos=.25] {0..N} (rath.west);
-\draw[ealink] (rath.east) -- node[eacard,above,pos=.75] {1..1} (ath.west);
-\draw[ealink] (del.south) -- node[eacard,right,pos=.15] {0..N} (rent.north);
-\draw[ealink] (rent.south) -- node[eacard,right,pos=.85] {1..1} (ent.north);
-\draw[ealink] (del.west) -- node[eacard,above,pos=.25] {0..N} (-4.4,16) -- (req.north);
-\draw[ealink] (req.south) -- (-4.4,-3.4) -- node[eacard,above,pos=.75] {1..1} (equ.west);
-\draw[ealink] (del.north) -- node[eacard,right,pos=.2] {0..N} (-1,19.5) -- (roff.west);
-\draw[ealink] (roff.east) -- (21,19.5) -- node[eacard,right,pos=.8] {0..1} (off.north);
+% Chaque attribut possède sa propre bulle, sous le losange de son association.
+\node[eaattr] (par-date) at (19,-5.2) {Date};
+\node[eaattr] (par-statut) at (25,-5.2) {Statut};
+\node[eaattr] (res-classement) at (14,-9) {Classement};
+\node[eaattr] (res-issue) at (19,-9) {Issue};
+\node[eaattr] (res-validation) at (25,-9) {Statut};
+\node[eaattr] (res-medaille) at (30,-9) {Médaille};
 
-% Composition, pratique et encadrement.
-\draw[ealink] (comp.east) -- node[eacard,above,pos=.8] {0..N} ([yshift=-1.2cm]ath.west);
-\draw[ealink] (comp.south) -- (3.3,8.15);
-% Saut de 3 mm au-dessus de « Spécialisé » : croisement sans jonction.
-\draw[ealink] (3.3,7.85) -- (3.3,-3.2) -- node[eacard,above,pos=.8] {0..N} ([yshift=2mm]equ.east);
-\draw[ealink] (ent.east) -- node[eacard,above,pos=.15] {0..N} (spe.west);
-\draw[ealink] (spe.east) -- node[eacard,above,pos=.85] {0..N} (dis.west);
-\draw[ealink] (ent.south) -- node[eacard,right,pos=.15] {0..N} (enc.north);
-\draw[ealink] (enc.south) -- node[eacard,right,pos=.85] {0..N} (equ.north);
-\draw[ealink] (ath.south) -- node[eacard,right,pos=.2] {0..N} (pra.north);
-\draw[ealink] (pra.south) -- node[eacard,right,pos=.8] {0..N} ([xshift=-.8cm]dis.north);
-\draw[ealink] ([yshift=-2mm]equ.east) -- node[eacard,above,pos=.15] {1..1} (8.2,-3.6) -- (eng.south);
-\draw[ealink] (eng.north) -- node[eacard,right,pos=.85] {0..N} ([xshift=-1.28cm]dis.south);
+% Pratique et composition.
+\draw[ealink] (ath.north) -- node[eacard,left,pos=.3] {0..N} (0,11) -- (pra.west);
+\draw[ealink] (pra.east) -- node[eacard,above,pos=.65] {0..N} (dis.west);
+\draw[ealink] (ath.south) -- node[eacard,left,pos=.3] {0..N} (0,0) -- (comp.west);
+\draw[ealink] (comp.east) -- node[eacard,above,pos=.65] {0..N} (equ.west);
 
-% Sport, officiel et épreuve.
-\draw[ealink] (dis.east) -- node[eacard,above,pos=.15] {1..1} (reg.west);
-\draw[ealink] (reg.east) -- node[eacard,above,pos=.85] {0..N} (spo.west);
-\draw[ealink] ([xshift=1cm]dis.north) -- node[eacard,right,pos=.2] {0..N} (9.625,12.7) -- (aff.west);
-\draw[ealink] (aff.east) -- (21,12.7) -- node[eacard,right,pos=.8] {1..1} (off.south);
-\draw[ealink] (off.east) -- node[eacard,above,pos=.2] {0..N} (24.7,16) -- (arb.north);
-\draw[ealink] (arb.south) -- (24.7,-3.4) -- node[eacard,above,pos=.8] {0..N} (epr.east);
-\draw[ealink] ([yshift=-1.2cm]dis.east) -- node[eacard,above,pos=.15] {0..N} (cont.west);
-\draw[ealink] (cont.east) -- (21.625,6.8) -- node[eacard,right,pos=.85] {1..1} ([xshift=1cm]epr.north);
+% Discipline de l'équipe et encadrement.
+\draw[ealink] (dis.south) -- node[eacard,left,pos=.35] {0..N} (eng.north);
+\draw[ealink] (eng.south) -- node[eacard,left,pos=.65] {1..1} (equ.north);
+\draw[ealink] (dis.east) -- node[eacard,above,pos=.3] {0..N} (spe.west);
+\draw[ealink] (spe.east) -- (20,11) -- node[eacard,right,pos=.7] {0..N} (ent.north);
+\draw[ealink] (ent.south) -- node[eacard,right,pos=.3] {0..N} (20,0) -- (enc.east);
+\draw[ealink] (enc.west) -- node[eacard,above,pos=.7] {0..N} (equ.east);
 
-% Matériel et lieu.
-\draw[ealink] ([xshift=.8cm]dis.south) -- node[eacard,right,pos=.2] {0..N} (nec.north);
-\draw[ealink] (nec.south) -- node[eacard,right,pos=.8] {0..N} ([xshift=-.7cm]mat.north);
-\draw[ealink] ([xshift=1.3cm]mat.north) -- node[eacard,right,pos=.2] {0..N} (10.75,4) -- (sto.west);
-\draw[ealink] (sto.east) -- node[eacard,above,pos=.8] {0..N} (lie.west);
-\draw[ealink] (mat.east) -- node[eacard,above,pos=.15] {0..N} (resv.west);
-\draw[ealink] (resv.east) -- node[eacard,above,pos=.85] {0..N} (20.375,0) -- ([xshift=-1cm]epr.north);
-\draw[ealink] (lie.east) -- node[eacard,above,pos=.2] {0..N} (acc.west);
-\draw[ealink] (acc.east) -- (21,4) -- node[eacard,right,pos=.85] {1..1} (epr.north);
+% Discipline et lieu de l'épreuve.
+\draw[ealink] (dis.north) |- node[eacard,above,pos=.8] {0..N} (cont.west);
+\draw[ealink] (cont.south) |- node[eacard,above,pos=.85] {1..1} ([yshift=7mm]epr.west);
+\draw[ealink] (lie.south) -- node[eacard,right,pos=.3] {0..N} (acc.north);
+\draw[ealink] (acc.south) -- node[eacard,right,pos=.7] {1..1} (epr.north);
 
-% Liens directs équipe-épreuve.
-\draw[ealink] ([yshift=-6mm]equ.east) -- node[eacard,above,pos=.15] {0..N} (par.west);
-\draw[ealink] (par.east) -- node[eacard,above,pos=.85] {0..N} ([yshift=-6mm]epr.west);
-\draw[ealink] (equ.south) -- node[eacard,right,pos=.2] {0..N} (-1,-8.7) -- (res.west);
-\draw[ealink] (res.east) -- (21,-8.7) -- node[eacard,right,pos=.8] {0..N} (epr.south);
+% Deux associations distinctes entre équipe et épreuve.
+\draw[ealink] ([xshift=7mm]equ.south) |- node[eacard,above,pos=.75] {0..N} (par.west);
+\draw[ealink] ([xshift=-7mm]epr.south) |- node[eacard,above,pos=.75] {0..N} (par.east);
+\draw[ealink] ([xshift=-7mm]equ.south) |- node[eacard,above,pos=.8] {0..N} (res.west);
+\draw[ealink] ([xshift=7mm]epr.south) |- node[eacard,above,pos=.8] {0..N} (res.east);
+
+% Les attributs sont reliés directement à leur association, sans cardinalité.
+\draw[ealink] (par) -- (par-date);
+\draw[ealink] (par) -- (par-statut);
+\draw[ealink] (res) -- (res-classement);
+\draw[ealink] (res) -- (res-issue);
+\draw[ealink] (res) -- (res-validation);
+\draw[ealink] (res) -- (res-medaille);
 \end{tikzpicture}

@@ -22,6 +22,12 @@ Ainsi, les contraintes suivantes doivent être respectées aussi bien lors du re
 
   \item \label{ctr:epreuve-medaillee} Un résultat ne peut indiquer une médaille que si l'épreuve concernée attribue une médaille.
 
+  \item \label{ctr:validation-resultat} Un résultat est créé avec le statut de validation "provisoire". Un officiel peut saisir et modifier uniquement les résultats provisoires des épreuves qu'il supervise ; il ne peut pas les valider. Un organisateur peut valider un résultat, quelle que soit son issue sportive, ou le remettre au statut provisoire pour permettre une correction. L'administrateur peut également effectuer ces opérations.
+
+  \item \label{ctr:correction-resultat} La performance, le classement, l'issue sportive et la médaille d'un résultat validé ne peuvent pas être modifiés tant qu'il conserve ce statut. Une correction nécessite d'abord son retour au statut provisoire, puis une nouvelle validation. Cette règle s'applique également à l'administrateur.
+
+  \item \label{ctr:publication-resultat} Seuls les résultats dont le statut de validation vaut "validé" sont publiés au public et aux délégations, y compris les abandons et les disqualifications. Le tableau des médailles compte uniquement les résultats validés d'issue "terminé" comportant une médaille ; une médaille d'équipe est comptée une seule fois. Le retour d'un résultat au statut provisoire le retire des résultats publiés et, le cas échéant, du décompte des médailles.
+
   \item \label{ctr:delegation} Les athlètes d'une même équipe doivent appartenir à la même délégation que cette équipe.
 
   \item \label{ctr:delegation-entraineurs} Les entraîneurs d'une équipe doivent appartenir à la même délégation que cette équipe. La nationalité d'un entraîneur peut toutefois être différente du pays de sa délégation.
@@ -67,10 +73,11 @@ Les informations renseignées doivent également respecter les conditions simple
 \begin{itemize}
   \item Le statut d'une inscription est obligatoire et vaut active ou annulée.
   \item Le statut d'une réservation est obligatoire et vaut active ou annulée. Une réservation annulée ne couvre aucun besoin et ne bloque aucun équipement.
-  \item Le statut d'un résultat est obligatoire et vaut validé, disqualifié ou abandon.
-  \item Un résultat validé doit comporter une performance et un classement.
+  \item L'issue sportive d'un résultat est obligatoire et vaut terminé, disqualifié ou abandon.
+  \item Le statut de validation d'un résultat est obligatoire et vaut provisoire ou validé ; sa valeur initiale est provisoire.
+  \item Un résultat d'issue "terminé" doit comporter une performance et un classement, quel que soit son statut de validation. Ces valeurs peuvent manquer pour les issues "disqualifié" et "abandon", même après validation.
   \item La performance, lorsqu'elle est renseignée, est une valeur numérique, éventuellement décimale, exprimée dans l'unité de la discipline. Une durée est strictement positive et une distance est supérieure ou égale à zéro.
-  \item La médaille est facultative et vaut or, argent ou bronze lorsqu'elle est renseignée. Elle ne peut être indiquée que pour un résultat validé.
+  \item La médaille est facultative et vaut or, argent ou bronze lorsqu'elle est renseignée. Elle ne peut être indiquée que pour un résultat d'issue "terminé". Elle peut être proposée avant validation, mais n'est comptabilisée qu'après validation. Un changement d'issue vers "disqualifié" ou "abandon" impose de retirer toute médaille.
   \item Le rang, lorsqu'il est renseigné, est un nombre entier supérieur ou égal à 1.
   \item L'heure de fin d'une épreuve est postérieure à son heure de début.
   \item Le sexe concerné par une épreuve est choisi parmi les valeurs suivantes : hommes, femmes ou mixte.

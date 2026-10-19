@@ -1,1 +1,83 @@
 \subsection{Traduction du schéma E/A en relationnel}
+Le schéma relationnel obtenu à partir du modèle entité-association est donné ci-dessous. Les clés primaires sont \underline{soulignées} et les clés étrangères sont précédées de \#.
+% Macros locales
+\newcommand{\pk}[1]{\underline{#1}}
+\newcommand{\fk}[1]{\#{#1}}
+\newcommand{\pkfk}[1]{\underline{\#{#1}}}
+
+\subsubsection{Relations}
+
+\textbf{LIEU} (\pk{id\_lieu}, nom, ville, capacite\_accueil, type\_installation, adresse)
+
+\textbf{DISCIPLINE} (\pk{id\_discipline}, nom, sport, format, effectif\_min, effectif\_max, poids\_min, poids\_max, description)
+
+\textbf{EPREUVE} (\pk{id\_epreuve}, date, heure\_debut, heure\_fin, phase, sexe\_concerne, attribue\_medaille, annulee, \fk{id\_lieu}, \fk{id\_discipline})
+
+\textbf{EQUIPE} (\pk{id\_equipe}, \fk{id\_discipline})
+
+\textbf{ATHLETE} (\pk{id\_athlete}, nom, prenom, taille, date\_naissance, sexe, poids, nationalite)
+
+\textbf{ENTRAINEUR} (\pk{num\_carte\_pro}, nom, prenom, date\_naissance, nationalite)
+
+\textbf{PRATIQUE} (\pkfk{id\_athlete}, \pkfk{id\_discipline})
+
+\textbf{COMPOSE} (\pkfk{id\_athlete}, \pkfk{id\_equipe})
+
+\textbf{SPECIALISE} (\pkfk{num\_carte\_pro}, \pkfk{id\_discipline})
+
+\textbf{ENCADRE} (\pkfk{num\_carte\_pro}, \pkfk{id\_equipe})
+
+\textbf{PARTICIPE} (\pkfk{id\_equipe}, \pkfk{id\_epreuve}, date, statut)
+
+\textbf{RESULTAT} (\pkfk{id\_equipe}, \pkfk{id\_epreuve}, medaille, statut, issue, classement)
+
+\subsubsection{Clés étrangères}
+
+\begin{itemize}
+  \item \textbf{EPREUVE}
+  \begin{itemize}
+    \item \fk{id\_lieu} fait référence à \texttt{id\_lieu} de LIEU : c'est le lieu qui accueille l'épreuve.
+    \item \fk{id\_discipline} fait référence à \texttt{id\_discipline} de DISCIPLINE : c'est la discipline à laquelle appartient l'épreuve.
+  \end{itemize}
+
+  \item \textbf{EQUIPE}
+  \begin{itemize}
+    \item \fk{id\_discipline} fait référence à \texttt{id\_discipline} de DISCIPLINE : c'est la discipline dans laquelle l'équipe concourt.
+  \end{itemize}
+
+  \item \textbf{PRATIQUE}
+  \begin{itemize}
+    \item \fk{id\_athlete} fait référence à \texttt{id\_athlete} de ATHLETE : c'est l'athlète qui pratique.
+    \item \fk{id\_discipline} fait référence à \texttt{id\_discipline} de DISCIPLINE : c'est la discipline pratiquée.
+  \end{itemize}
+
+  \item \textbf{COMPOSE}
+  \begin{itemize}
+    \item \fk{id\_athlete} fait référence à \texttt{id\_athlete} de ATHLETE : c'est l'athlète membre de l'équipe.
+    \item \fk{id\_equipe} fait référence à \texttt{id\_equipe} de EQUIPE : c'est l'équipe dont il fait partie.
+  \end{itemize}
+
+  \item \textbf{SPECIALISE}
+  \begin{itemize}
+    \item \fk{num\_carte\_pro} fait référence à \texttt{num\_carte\_pro} de ENTRAINEUR : c'est l'entraîneur spécialisé.
+    \item \fk{id\_discipline} fait référence à \texttt{id\_discipline} de DISCIPLINE : c'est la discipline de spécialité.
+  \end{itemize}
+
+  \item \textbf{ENCADRE}
+  \begin{itemize}
+    \item \fk{num\_carte\_pro} fait référence à \texttt{num\_carte\_pro} de ENTRAINEUR : c'est l'entraîneur qui encadre.
+    \item \fk{id\_equipe} fait référence à \texttt{id\_equipe} de EQUIPE : c'est l'équipe encadrée.
+  \end{itemize}
+
+  \item \textbf{PARTICIPE}
+  \begin{itemize}
+    \item \fk{id\_equipe} fait référence à \texttt{id\_equipe} de EQUIPE : c'est l'équipe qui participe.
+    \item \fk{id\_epreuve} fait référence à \texttt{id\_epreuve} de EPREUVE : c'est l'épreuve concernée.
+  \end{itemize}
+
+  \item \textbf{RESULTAT}
+  \begin{itemize}
+    \item \fk{id\_equipe} fait référence à \texttt{id\_equipe} de EQUIPE : c'est l'équipe qui obtient le résultat.
+    \item \fk{id\_epreuve} fait référence à \texttt{id\_epreuve} de EPREUVE : c'est l'épreuve où le résultat est obtenu.
+  \end{itemize}
+\end{itemize}'

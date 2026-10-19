@@ -1,1 +1,53 @@
 \subsection{Questions}
+
+Cette section présente les requêtes envisagées sur la base de données. Les requêtes 1 à 16 portent sur la structure des Jeux (personnes, équipes, épreuves, lieux). Les requêtes 17 à 21 sont des requêtes statistiques qui exploitent la table \emph{Résultat}.
+
+\subsubsection{Requêtes sur la structure des Jeux}
+
+\begin{enumerate}
+  \item Lister les athlètes français, triés par nom puis par prénom.
+
+  \item Afficher les athlètes dont la deuxième lettre du prénom est un «~a~».
+
+  \item Lister les épreuves de toutes les disciplines du «~Judo~», avec leur date.
+
+  \item Lister tous les lieux avec les épreuves qu'ils accueillent, y compris les lieux qui n'en accueillent aucune.
+
+  \item Lister toutes les personnes impliquées dans les JO (athlètes et entraîneurs) avec leur nom, prénom et nationalité, en précisant pour chacune son rôle.
+
+  \item Afficher les lieux qui accueillent au moins une finale.
+
+  \item Afficher les villes qui accueillent à la fois une épreuve masculine et une épreuve féminine.
+
+  \item Lister les équipes ayant remporté une médaille, mais jamais une médaille d'or.
+
+  \item Lister les paires d'entraîneurs qui encadrent la même équipe.
+
+  \item Pour chaque équipe, afficher le nombre d'entraîneurs qui l'encadrent (0 si aucun).
+
+  \item Pour chaque médaille remportée, afficher le nom et le prénom de l'athlète, la discipline, le lieu et la date de l'épreuve.
+
+  \item Lister les épreuves dans lesquelles au moins une équipe participante contient un athlète de plus de 2 mètres.
+
+  \item Lister les athlètes qui pratiquent toutes les disciplines du sport «~natation~».
+
+  \item Afficher la liste de toutes les personnes (athlètes et entraîneurs) au format «~NOM Prénom~».
+
+  \item Lister toutes les paires possibles lieu $\times$ date d'épreuve.
+
+  \item Lister tous les lieux et toutes les épreuves, y compris les lieux sans épreuve et les épreuves sans lieu.
+\end{enumerate}
+
+\subsubsection{Requêtes statistiques sur les résultats}
+
+\begin{enumerate}[resume]
+  \item Pour chaque délégation, afficher le nombre de médailles d'or, d'argent et de bronze remportées, triées par nombre de médailles d'or décroissant.
+
+  \item Pour chaque discipline, afficher le nombre de résultats validés ainsi que la meilleure, la pire et la moyenne des performances.
+
+  \item Lister les délégations ayant remporté au moins 5 médailles, avec leur nombre total de médailles.
+
+  \item Afficher, pour chaque sexe, la taille moyenne et le poids moyen des athlètes ayant remporté une médaille d'or.
+
+  \item Pour chaque sport, afficher le nombre d'épreuves, le nombre d'équipes différentes y participant et le nombre total de médailles attribuées.
+\end{enumerate}

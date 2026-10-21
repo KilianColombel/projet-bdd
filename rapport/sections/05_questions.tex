@@ -13,7 +13,7 @@ Cette section présente les requêtes envisagées sur la base de données. Les r
 
   \item Lister tous les lieux avec les épreuves qu'ils accueillent, y compris les lieux qui n'en accueillent aucune.
 
-  \item Lister toutes les personnes impliquées dans les JO (athlètes et entraîneurs) avec leur nom, prénom et nationalité, en précisant pour chacune son rôle.
+  \item Lister toutes les personnes impliquées dans les JO (athlètes et entraîneurs) avec leur nom, prénom et nationalité, au format «~NOM Prénom Rôle~».
 
   \item Afficher les lieux qui accueillent au moins une finale.
 
@@ -31,23 +31,23 @@ Cette section présente les requêtes envisagées sur la base de données. Les r
 
   \item Lister les athlètes qui pratiquent toutes les disciplines du sport «~natation~».
 
-  \item Afficher la liste de toutes les personnes (athlètes et entraîneurs) au format «~NOM Prénom~».
-
   \item Lister toutes les paires possibles lieu $\times$ date d'épreuve.
 
   \item Lister tous les lieux et toutes les épreuves, y compris les lieux sans épreuve et les épreuves sans lieu.
+  
+  \item Lister toutes les équipes sans resultats dans une épreuve terminée. (Pour savoir quels résultats sont encore à valider)
 \end{enumerate}
 
 \subsubsection{Requêtes statistiques sur les résultats}
 
 \begin{enumerate}[resume]
-  \item Pour chaque délégation, afficher le nombre de médailles d'or, d'argent et de bronze remportées, triées par nombre de médailles d'or décroissant.
+  \item Pour chaque nationalité, afficher le nombre de médailles d'or, d'argent et de bronze remportées, triées par nombre de médailles d'or décroissant.
 
-  \item Pour chaque discipline, afficher le nombre de résultats validés ainsi que la meilleure, la pire et la moyenne des performances.
+  \item Pour chaque discipline, afficher le nombre de résultats validés ainsi que la meilleure, la pire et la moyenne des classements.
 
-  \item Lister les délégations ayant remporté au moins 5 médailles, avec leur nombre total de médailles.
+  \item Lister les nationalités ayant remporté au moins 5 médailles, avec leur nombre total de médailles.
 
-  \item Afficher, pour chaque sexe, la taille moyenne et le poids moyen des athlètes ayant remporté une médaille d'or.
+  \item Afficher, pour chaque sexe, l'écart type des tailles et le poids moyen des athlètes ayant remporté une médaille d'or.
 
   \item Pour chaque sport, afficher le nombre d'épreuves, le nombre d'équipes différentes y participant et le nombre total de médailles attribuées.
 \end{enumerate}

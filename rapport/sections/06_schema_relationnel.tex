@@ -1,11 +1,8 @@
 \subsection{Traduction du schéma E/A en relationnel}
-Le schéma relationnel obtenu à partir du modèle entité-association est donné ci-dessous. Les clés primaires sont \underline{soulignées} et les clés étrangères sont précédées de \#.
 % Macros locales
 \newcommand{\pk}[1]{\underline{#1}}
 \newcommand{\fk}[1]{\#{#1}}
 \newcommand{\pkfk}[1]{\underline{\#{#1}}}
-
-\subsubsection{Relations}
 
 \textbf{LIEU} (\pk{id\_lieu}, nom, ville, capacite\_accueil, type\_installation, adresse)
 
@@ -31,7 +28,7 @@ Le schéma relationnel obtenu à partir du modèle entité-association est donn�
 
 \textbf{RESULTAT} (\pkfk{id\_equipe}, \pkfk{id\_epreuve}, medaille, statut, issue, classement)
 
-\subsubsection{Clés étrangères}
+\subsubsection*{Clés étrangères}
 
 \begin{itemize}
   \item \textbf{EPREUVE}

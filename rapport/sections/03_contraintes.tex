@@ -26,7 +26,7 @@ Ces règles complètent le schéma et s'appliquent à chaque création, modifica
 
   \item \label{ctr:validation-resultat}  Un résultat exige une inscription active à une épreuve non annulée. Il est saisi après la fin de l'épreuve, avec le statut initial provisoire.
 
-  \item \label{ctr:correction-resultat}  Tant qu'un résultat est validé, son classement, son issue et sa médaille sont immuables, et sa suppression est interdite. Toute correction ou suppression exige un retour préalable au statut provisoire.
+  \item \label{ctr:correction-resultat}  Tant qu'un résultat est validé, son couple équipe-épreuve, son classement, son issue et sa médaille sont immuables, et sa suppression est interdite. Toute correction ou suppression exige un retour préalable au statut provisoire.
 
   \item \label{ctr:rang-maximal}  Le rang renseigné est compris entre un et le nombre d'inscriptions actives à l'épreuve. Une médaille exige que l'épreuve puisse en attribuer une. Elle est saisie à la main selon les règles de compétition, sans déduction automatique du rang.
 
@@ -48,10 +48,10 @@ Ces règles complètent le schéma et s'appliquent à chaque création, modifica
   \item Sexe : athlète \(\in\{\mbox{homme},\mbox{femme}\}\) et épreuve \(\in\{\mbox{hommes},\mbox{femmes},\mbox{mixte}\}\).
   \item Capacité du lieu \(\in \mathbb{N}\) (nombre de spectateurs).
   \item Taille et poids : taille \(>0\) en cm et poids \(>0\) en kg, si renseignés.
-  \item Bornes de poids : facultatives, \(P_{\min}\geq 0\), \(P_{\max}>0\), si renseignées et \(P_{\min}<P_{\max}\) si les deux existent.
+  \item Bornes de poids : facultatives, \(P_{\min}\geq 0\), \(P_{\max}>0\), si renseignées et \(P_{\min}<P_{\max}\) si les deux existent. La borne minimale est exclue et la borne maximale est incluse.
   \item Format de participation \(\in\{\mbox{individuel},\mbox{équipe}\}\).
   \item Limites d'effectif : \(N_{\min},N_{\max}\in \mathbb{N}^{*}\) et \(N_{\min}\leq N_{\max}\).\newline
-  Format individuel \(\Longrightarrow N_{\min}=N_{\max}=1\).
+  Format individuel \(\Longrightarrow N_{\min}=N_{\max}=1\) ; format équipe \(\Longrightarrow N_{\min}\geq 2\).
 \end{itemize}
 
 % \subsubsection{Suivi de la préparation des épreuves}

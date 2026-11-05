@@ -2,9 +2,12 @@
 
 \subsubsection{Profils et convention d'accès}
 
-Les droits d'accès aux données dépendent du profil de l'utilisateur. Le tableau suivant précise, pour chaque concept, les opérations autorisées à chaque profil.
-
-Trois profils peuvent utiliser la base. L'administrateur gère l'ensemble des données. L'organisateur assure le suivi des participants, des équipes, des inscriptions, du calendrier et des résultats. Le public consulte uniquement les informations publiées.
+Les droits d'accès aux données dépendent du profil de l'utilisateur. Le tableau suivant précise, pour chaque concept, les opérations autorisées à chaque profil. Trois profils peuvent utiliser la base : 
+\begin{itemize}
+  \item L'administrateur qui gère l'ensemble des données
+  \item L'organisateur assure le suivi des participants, des équipes, des inscriptions, du calendrier et des résultats
+  \item Le public consulte uniquement les informations publiées
+\end{itemize}
 
 Les droits de gestion restent soumis à toutes les contraintes métier. En particulier, les inscriptions sont conservées pendant les Jeux, leur date initiale et le couple équipe--épreuve sont immuables, et les équipes et épreuves correspondantes ne peuvent pas être supprimées. La composition d'une équipe est figée dès sa première inscription. Ces règles s'appliquent aussi à l'administrateur.
 
@@ -115,20 +118,20 @@ Pour appliquer ces droits, certaines données sont exposées uniquement à trave
   \endhead
   \hline
   \endfoot
-  \texttt{\scriptsize V\_ATHLETE\_PUBLIC} & Identifiant, nom, prénom, sexe et nationalité de l'athlète, accompagnés des noms des disciplines pratiquées. Une ligne par discipline ; les athlètes sans discipline restent visibles. Ni date de naissance, ni poids, ni taille. & Tous \\
+  \texttt{\scriptsize V\_ATHLETE\_PUBLIC} & Identifiant, nom, prénom, sexe et nationalité de l'athlète, accompagnés des noms des disciplines pratiquées. Une ligne par discipline, et les athlètes sans discipline restent visibles. & Tous \\
   \hline
-  \texttt{\scriptsize V\_ENTRAINEUR\_PUBLIC} & Nom, prénom et nationalité de l'entraîneur, accompagnés des noms de ses disciplines de spécialisation. Une ligne par spécialité ; les entraîneurs sans spécialité restent visibles. Ni date de naissance, ni numéro de carte professionnelle. & Tous \\
+  \texttt{\scriptsize V\_ENTRAINEUR\_PUBLIC} & Nom, prénom et nationalité de l'entraîneur, accompagnés des noms de ses disciplines de spécialisation. Une ligne par discipline, et les entraîneurs sans spécialité restent visibles. & Tous \\
   \hline
   \texttt{\scriptsize V\_CALENDRIER} & Identifiant de l'épreuve, discipline, phase, sexe concerné, attribution de médaille, date, horaires, nom et adresse du lieu, pour les épreuves non annulées. & Tous \\
   \hline
   \texttt{\scriptsize V\_RESULTATS\_VALIDES} & Identifiant de l'équipe, discipline, épreuve (identifiant, phase et date), classement éventuel, issue sportive et médaille éventuelle. Uniquement les résultats validés. & Tous \\
   \hline
-  \texttt{\scriptsize V\_TABLEAU\_MEDAILLES} & Une ligne par équipe avec son identifiant, sa discipline et le nombre de médailles d'or, d'argent et de bronze, ainsi que leur total. Seuls les résultats validés comptent. Les équipes sans médaille figurent avec des totaux nuls ; une médaille collective compte une seule fois. & Tous \\
+  \texttt{\scriptsize V\_TABLEAU\_MEDAILLES} & Une ligne par équipe avec son identifiant, sa discipline et le nombre de médailles d'or, d'argent et de bronze, ainsi que leur total. Seuls les résultats validés comptent. Les équipes sans médaille figurent avec un total nul. & Tous \\
   \hline
-  \texttt{\scriptsize V\_SUIVI\_PREPARATION} & Épreuves non annulées à venir sans inscription active, avec leur identifiant, leur discipline, leur date, leurs horaires et leur lieu. Les inscriptions annulées ne comptent pas comme des participants. & Organisateur, administrateur \\
+  \texttt{\scriptsize V\_SUIVI\_PREPARATION} & Épreuves non annulées à venir sans inscription active, avec leur identifiant, leur discipline, leur date, leurs horaires et leur lieu. Les inscriptions annulées ne sont pas comptabilisées. & Organisateur, administrateur \\
   \hline
   \hline
-  \texttt{\scriptsize V\_EQUIPES} & Identifiant de l'équipe, nationalité, discipline, nom, prénom et sexe de chaque athlète, entraîneur de la délgation. Une ligne par athlète et par équipe ; les équipes sans athlète restent visibles. Permet de retrouver toutes les équipes d'un pays, classées par discipline. Ni date de naissance, ni poids, ni taille. & Tous \\
+  \texttt{\scriptsize V\_EQUIPES} & Identifiant de l'équipe, nationalité, discipline, nom, prénom et sexe de chaque athlète, entraîneur de la délgation. Une ligne par athlète et par équipe, et les équipes sans athlète restent visibles. & Tous \\
   \hline
 \end{longtable}
 }

@@ -6,7 +6,7 @@ Ces règles complètent le schéma et s'appliquent à chaque création, modifica
 
 \begin{contraintes}[itemsep=0.5\baselineskip]
 
-  \item \label{ctr:discipline}  Toute inscription, active ou annulée, relie une équipe à une épreuve de sa discipline. Chaque membre de l'équipe pratique cette discipline et chaque entraîneur qui l'encadre y est spécialisé dans celle-ci.
+  \item \label{ctr:discipline}  Toute inscription, active ou annulée, relie une équipe à une épreuve de sa discipline. Chaque membre de l'équipe pratique cette discipline et chaque entraîneur qui l'encadre y est spécialisé.
 
   \item \label{ctr:effectif-equipe}  Toute équipe ayant une inscription active possède au moins un entraîneur et un effectif compris entre les limites de sa discipline.
 
@@ -16,11 +16,11 @@ Ces règles complètent le schéma et s'appliquent à chaque création, modifica
 
   \item \label{ctr:personnes}  Un athlète ne peut appartenir à deux équipes ayant une inscription active à la même épreuve. 
   
-  \item \label{ctr:uniq-participants} Un athlète ou un entraîneur ne peut être engagé, via des inscriptions actives, dans deux épreuves distinctes dont les horaires se chevauchent
+  \item \label{ctr:uniq-participants} Un athlète ou un entraîneur ne peut être engagé, via des inscriptions actives, dans deux épreuves distinctes dont les horaires se chevauchent.
 
   \item \label{ctr:composition} Dès la première inscription d'une équipe, la liste de ses athlètes et les limites d'effectif de sa discipline sont figées pendant les JO, même si les inscriptions sont ensuite annulées.
 
-  \item \label{ctr:historique-inscriptions}Pendant les JO, toute inscription et les deux entités associées sont conservées. Sa date initiale ainsi que son couple équipe-épreuve sont immuables. Seul son statut peut changer. Dès le début de l'épreuve, aucune création, annulation ou réactivation n'est permise.
+  \item \label{ctr:historique-inscriptions} Pendant les JO, toute inscription et les deux entités associées sont conservées. Sa date initiale ainsi que son couple équipe-épreuve sont immuables. Seul son statut peut changer. Dès le début de l'épreuve, aucune création, annulation ou réactivation n'est permise.
 
   \item \label{ctr:annulation-epreuve}  Le créneau d'une épreuve est fixé à la création. Le changer exige d'annuler l'épreuve avant son début et d'en créer une nouvelle, sans transfert automatique des inscriptions. Toute annulation est définitive, autorisée uniquement avant le début de l'épreuve, et annule les inscriptions actives. L'épreuve reste conservée, mais n'admet alors plus de nouvelle inscription, de réactivation ni de résultat.
 
